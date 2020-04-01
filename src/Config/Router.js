@@ -1,21 +1,18 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Layout } from '../Components';
-import {
-  HomePage
-} from '../Pages';
-import AuthenticationRoute from './AuthenticationRoute';
+import { HomePage } from '../Pages';
 
 export const routes = {
-  DEFAULT: { path: '/', component: { HomePage }},
-  HOME: { path: '/home', component: { HomePage }}
+  DEFAULT: { path: '/', component: HomePage },
+  HOME: { path: '/home', component: HomePage }
 };
 
 const Router = () => {
   const RouterComponent = Object.getOwnPropertyNames(routes).map(
     (route, id) => {
       return (
-        <AuthenticationRoute
+        <Route
           key={id}
           path={routes[route].path}
           component={routes[route].component}
@@ -27,7 +24,6 @@ const Router = () => {
 
   return (
     <Switch>
-      <Route id="home" path={'/'} component={HomePage} />
       <Layout>{RouterComponent}</Layout>
     </Switch>
   );

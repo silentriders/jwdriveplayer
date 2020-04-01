@@ -1,4 +1,5 @@
 export default {
+  logo: require('./images/logo.png'),
   font: {
     REGULAR: 'Manrope-Regular',
     BOLD: 'Manrope-Bold',
