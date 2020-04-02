@@ -20,7 +20,7 @@
     },
     "ecmaVersion": 2018
   },
-  "plugins": ["react", "react-hooks"],
+  "plugins": ["react", "react-hooks", "emotion"],
   "settings": {
     "react": {
       "version": "detect"
@@ -34,6 +34,7 @@
     "no-unused-vars": "off",
     "no-mixed-spaces-and-tabs": 0,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "emotion/jsx-import": "error"
   }
 }
