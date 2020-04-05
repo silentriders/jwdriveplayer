@@ -1,12 +1,7 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Layout } from '../Components';
-import { HomePage } from '../Pages';
-
-export const routes = {
-  DEFAULT: { path: '/', component: HomePage },
-  HOME: { path: '/home', component: HomePage }
-};
+import { routes } from './routes';
 
 const Router = () => {
   const RouterComponent = Object.getOwnPropertyNames(routes).map(

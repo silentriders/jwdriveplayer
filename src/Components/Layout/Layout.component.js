@@ -1,17 +1,21 @@
 import React from 'react';
 import { Layout } from 'antd';
-import Assets from '../../Assets';
-const { Content } = Layout;
+import { WrapperLayout } from './Layout.style';
+import { Navbar } from '..';
+const { Content, Header } = Layout;
+
 
 const LayoutComponent = props => {
   const { children } = props;
   return (
-    <Layout>
-      <div>
-        <img src={Assets.logo} alt="LOGO" />
-      </div>
-      <Content>{children}</Content>
-    </Layout>
+    <WrapperLayout>
+      <Layout>
+        <Header>
+          <Navbar />
+        </Header>
+        <Content>{children}</Content>
+      </Layout>
+    </WrapperLayout>
   );
 };
 
