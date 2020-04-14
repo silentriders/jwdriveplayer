@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import 'antd/dist/antd.css';
 import './Assets/css/style.css';
+import 'video-react/dist/video-react.css';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));

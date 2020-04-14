@@ -1,21 +1,22 @@
 import React from 'react';
-import { BannerMovieContainers, ListContinueWatching, Recommended, TabsMovie } from '../../Containers';
-import PropTypes from 'prop-types';
+import { FormAddMovie } from '../../Containers';
+import { Row, Col } from 'antd';
 
-const HomePageComponent = (props) => {
-    const { dataBanner } = props;
-    return (
-        <div>
-            <BannerMovieContainers data={dataBanner} />
-            <ListContinueWatching />
-            <Recommended />
-            <TabsMovie />
-        </div>
-    );
+const HomePageComponent = props => {
+  return (
+    <div>
+      <Row>
+        <Col span={24}>
+        <h1>Add Movie</h1>
+        <FormAddMovie />
+        </Col>
+        <Col span={24}>
+        <h1>Add Series</h1>
+        <FormAddMovie type='series' />
+        </Col>
+      </Row>
+    </div>
+  );
 };
 
 export default HomePageComponent;
-
-HomePageComponent.propTypes = {
-    dataBanner: PropTypes.any.isRequired
-};

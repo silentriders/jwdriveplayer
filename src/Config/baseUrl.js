@@ -7,5 +7,6 @@ export default {
   SERIES: '/series',
   SERIES_DETAIL: '/series/:id',
   SERIES_PLAY: '/series/:id/play',
-  LOGIN: '/auth/login'
+  LOGIN: '/auth/login',
+  PLAYER: '/play/:id'
 };

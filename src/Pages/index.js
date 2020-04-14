@@ -1,2 +1,2 @@
 export { default as HomePage } from './Home';
-export { default as PlayMoviePage } from './PlayMovie'
+export {default as PlayerPage} from './Player';
