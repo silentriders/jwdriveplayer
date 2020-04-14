@@ -92,11 +92,6 @@ const PlayerComponent = props => {
         playerScript='https://cdn.jwplayer.com/libraries/wF6JZNTr.js'
         playlist={playlist}
         displaytitle={true}
-        abouttext="kontol"
-        aboutlink="https://google.com"
-        sharing={{
-          sites: ["reddit","facebook","twitter"]
-        }}
       />}
     </WrapPlayer>
   );
