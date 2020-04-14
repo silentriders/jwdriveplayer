@@ -219,7 +219,7 @@ const FormAddMovieComponent = props => {
         <p>Embed Source</p>
         <Input.TextArea
           rows={2}
-          value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`}
+          value={`<iframe src="https://jwdriveplayer.netlify.com/play/${dataMovie._id}" frameborder="0" width="100%" height="400" allowfullscreen="allowfullscreen"></iframe>`}
         />
       </ResultPreview>
     </WrapperFormAddMovie>
