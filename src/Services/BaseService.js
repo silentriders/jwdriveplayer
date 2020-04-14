@@ -28,7 +28,8 @@ const _createAxiosInterceptor = url => {
     headers: {
       Accept: 'application/json',
       'Accept-Language': 'es',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     }
   });
 

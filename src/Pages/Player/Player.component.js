@@ -69,7 +69,7 @@ const PlayerComponent = props => {
     !isEmpty(dataMovie.movie) && dataMovie.movie.subtitles.map(subtitle=> {
       src.push({
         kind: 'captions',
-        file: subtitle.file,
+        file: `https://cors-anywhere.herokuapp.com/${subtitle.file}`,
         label: subtitle.label,
         default: true
       })

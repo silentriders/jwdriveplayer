@@ -205,16 +205,25 @@ const FormAddMovieComponent = props => {
       </Form>
     </Row>
   );
-  return <WrapperFormAddMovie>
-    {_form()}
-    <ResultPreview isShow={isShowResult}>
-    <p>Your Link</p>
-    <Input.TextArea rows={2} value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`} />
-    <br/><br/>
-    <p>Embed Source</p>
-    <Input.TextArea rows={2} value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`} />
-    </ResultPreview>
-    </WrapperFormAddMovie>;
+  return (
+    <WrapperFormAddMovie>
+      {_form()}
+      <ResultPreview isShow={isShowResult}>
+        <p>Your Link</p>
+        <Input.TextArea
+          rows={2}
+          value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`}
+        />
+        <br />
+        <br />
+        <p>Embed Source</p>
+        <Input.TextArea
+          rows={2}
+          value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`}
+        />
+      </ResultPreview>
+    </WrapperFormAddMovie>
+  );
 };
 
 export default FormAddMovieComponent;
