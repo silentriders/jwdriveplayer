@@ -45,7 +45,7 @@ const FormAddMovieComponent = props => {
           <Radio.Button value="direct">Direct Link</Radio.Button>
           <Radio.Button value="upload">Upload</Radio.Button>
         </Radio.Group>
-        <SubtitleUpload isShow={subtitleType == 'upload' ? true : false}>
+        <SubtitleUpload isShow={subtitleType === 'upload' ? true : false}>
           {_mappingUploadSubtitles()}
           <Row gutter={24} type="flex" justify="end" style={{ marginTop: 8 }}>
             <Col span={6}>
@@ -73,7 +73,7 @@ const FormAddMovieComponent = props => {
             </Col>
           </Row>
         </SubtitleUpload>
-        <SubtitleDirect isShow={subtitleType == 'direct' ? true : false}>
+        <SubtitleDirect isShow={subtitleType === 'direct' ? true : false}>
           {_mappingDynamicForm()}
           <Row gutter={24} type="flex" justify="end" style={{ marginTop: 8 }}>
             <Col span={6}>
@@ -209,10 +209,10 @@ const FormAddMovieComponent = props => {
     {_form()}
     <ResultPreview isShow={isShowResult}>
     <p>Your Link</p>
-    <Input.TextArea rows={2} value={`http://localhost:3000/play/${dataMovie._id}`} />
+    <Input.TextArea rows={2} value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`} />
     <br/><br/>
     <p>Embed Source</p>
-    <Input.TextArea rows={2} value={`http://localhost:3000/play/${dataMovie._id}`} />
+    <Input.TextArea rows={2} value={`https://jwdriveplayer.netlify.com/play/${dataMovie._id}`} />
     </ResultPreview>
     </WrapperFormAddMovie>;
 };

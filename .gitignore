@@ -14,3 +14,6 @@
 # code editor/IDE
 /.vscode
 /.idea
+
+# Local Netlify folder
+.netlify

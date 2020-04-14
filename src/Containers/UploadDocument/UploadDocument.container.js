@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Icon, message, Button } from 'antd';
+import { message } from 'antd';
 import { useGlobalState } from '../../globalState';
 import UploadDocumentComponent from './UploadDocument.component';
 import { UploadButton } from './UploadDocument.style';
