@@ -13,8 +13,8 @@ const FormAddMovieContainer = props => {
   const [subtitleType, setSubtitleType] = useState('direct');
   const [fileSubtitles, setFileSubtitles] = useGlobalState('fileSubtitles');
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
-  const [dataMovie, setDataMovie] = useState({})
-  const [isShowResult, setIsShowResult] = useState(false)
+  const [dataMovie, setDataMovie] = useState({});
+  const [isShowResult, setIsShowResult] = useState(false);
 
   const customizer = (objValue, srcValue) => {
     if (_.isArray(objValue)) {
@@ -165,6 +165,25 @@ const FormAddMovieContainer = props => {
     }
   ];
 
+  const getDriveId = url => {
+    let parsing = _.chain(url)
+      .replace('?', '')
+      .split('&')
+      .map(_.partial(_.split, _, '=', 2))
+      .fromPairs()
+      .value();
+    let array = _.chain(url)
+      .split('/')
+      .value();
+    let driveId = '';
+    if (parsing['https://drive.google.com/openid'] !== undefined) {
+      driveId = parsing['https://drive.google.com/openid'];
+    } else {
+      driveId = array.length > 5 ? array[5] : array[0];
+    }
+    return driveId;
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
     props.form.validateFields((err, values) => {
@@ -194,10 +213,7 @@ const FormAddMovieContainer = props => {
           customizer
         );
         let subtitles = [];
-        let getDriveId = _.chain(values.driveId)
-          .split('/')
-          .value();
-        
+
         if (values.subtitleUrl[0] === '') {
           delete values.subtitleUrl;
           delete values.subtitleLabel;
@@ -213,7 +229,7 @@ const FormAddMovieContainer = props => {
 
         let data = {
           title: values.title,
-          driveId: getDriveId.length > 5 ? getDriveId[5] : getDriveId[0],
+          driveId: getDriveId(values.driveId),
           imdbId: values.imdbId,
           quality: values.quality,
           subtitles: subtitles,
@@ -225,10 +241,10 @@ const FormAddMovieContainer = props => {
           .then(res => {
             if (res) {
               message.success('Success create player');
-              setDataMovie(res)
-              setIsShowResult(true)
+              setDataMovie(res);
+              setIsShowResult(true);
               setIsLoadingSubmit(false);
-              setFileSubtitles([])
+              setFileSubtitles([]);
             }
           })
           .catch(() =>
@@ -269,10 +285,7 @@ const FormAddMovieContainer = props => {
           customizer
         );
         let subtitles = [];
-        let getDriveId = _.chain(values.driveId)
-          .split('/')
-          .value();
-        
+
         if (values.subtitleUrl[0] === '') {
           delete values.subtitleUrl;
           delete values.subtitleLabel;
@@ -288,7 +301,7 @@ const FormAddMovieContainer = props => {
 
         let data = {
           title: values.title,
-          driveId: getDriveId.length > 5 ? getDriveId[5] : getDriveId[0],
+          driveId: getDriveId(values.driveId),
           imdbId: values.imdbId,
           quality: values.quality,
           subtitles: subtitles,
@@ -302,10 +315,10 @@ const FormAddMovieContainer = props => {
           .then(res => {
             if (res) {
               message.success('Success create player');
-              setDataMovie(res)
-              setIsShowResult(true)
+              setDataMovie(res);
+              setIsShowResult(true);
               setIsLoadingSubmit(false);
-              setFileSubtitles([])
+              setFileSubtitles([]);
             }
           })
           .catch(() =>
