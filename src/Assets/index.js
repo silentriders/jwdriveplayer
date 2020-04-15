@@ -26,6 +26,7 @@ export default {
   },
   no_preview: {
     image: require('./no-preview.png'),
+    image2: require('./no-preview.jpg'),
     video: require('./no-video.mp4'),
   }
 };

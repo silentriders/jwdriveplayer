@@ -6,7 +6,7 @@ import Assets from '../../Assets';
 const PlayerContainer = (props) => {
   const [dataMovie, setDataMovie] = useState({
     movie: {
-      image: 'https://www.ecopetit.cat/wpic/mpic/101-1019747_passeio-das-aguas-cinema.jpg'
+      image: Assets.no_preview.image2
     },
     sources: [{
       file: Assets.no_preview.video,
@@ -47,7 +47,6 @@ const PlayerContainer = (props) => {
     }
     getMovie()
   },[])
-  console.log(dataMovie)
   
   return (
     <div>
