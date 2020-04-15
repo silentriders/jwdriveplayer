@@ -23,5 +23,9 @@ export default {
     trending_red: require('./images/icon/trending-red.svg'),
     heart_red: require('./images/icon/heart-red.svg'),
     timer_red: require('./images/icon/timer-red.svg')
+  },
+  no_preview: {
+    image: require('./no-preview.png'),
+    video: require('./no-video.mp4'),
   }
 };
