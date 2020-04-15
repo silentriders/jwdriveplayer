@@ -6,3 +6,4 @@ export {default as Btn} from './Btn';
 export {default as SeeAll} from './SeeAll';
 export {default as CardMovie} from './CardMovie';
 export {default as PosterMovie} from './PosterMovie';
+export {default as FloatChat} from './FloatChat';

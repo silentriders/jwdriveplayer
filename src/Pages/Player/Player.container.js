@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PlayerComponent from './Player.component';
 import Jwplayer from '../../Services/Jwplayer/Jwplayer';
 import Assets from '../../Assets';
+import {Helmet} from 'react-helmet';
 
 const PlayerContainer = (props) => {
   const [dataMovie, setDataMovie] = useState({
@@ -50,6 +51,10 @@ const PlayerContainer = (props) => {
   
   return (
     <div>
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>{dataMovie?.movie?.title ?? 'Play Movie'} - Jwdriveplayer</title>
+      </Helmet>
       <PlayerComponent
         dataMovie={dataMovie}
       />

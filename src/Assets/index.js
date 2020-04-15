@@ -6,8 +6,8 @@ export default {
     SEMI_BOLD: 'Manrope-SemiBold',
     LIGHT: 'Manrope-Light'
   },
-  images:{
-    example:{
+  images: {
+    example: {
       backdrop: require('./images/example/backdrop.png'),
       card_loading: require('./images/example/card-loading.svg')
     }
@@ -22,11 +22,12 @@ export default {
     fire_red: require('./images/icon/fire-red.svg'),
     trending_red: require('./images/icon/trending-red.svg'),
     heart_red: require('./images/icon/heart-red.svg'),
-    timer_red: require('./images/icon/timer-red.svg')
+    timer_red: require('./images/icon/timer-red.svg'),
+    chat: require('./images/icon/chat.svg')
   },
   no_preview: {
     image: require('./no-preview.png'),
     image2: require('./no-preview.jpg'),
-    video: require('./no-video.mp4'),
+    video: require('./no-video.mp4')
   }
 };
