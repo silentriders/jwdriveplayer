@@ -1,6 +1,7 @@
 export default {
   DEFAULT: '/',
   HOME: '/home',
+  KEYWORD: '/keyword/:keyword',
   MOVIES: '/movies',
   MOVIE_DETAIL: '/movie/:slug/:id',
   MOVIE_PLAY: '/movie/:slug/:id/play',

@@ -10,7 +10,8 @@ export default {
     example: {
       backdrop: require('./images/example/backdrop.png'),
       card_loading: require('./images/example/card-loading.svg')
-    }
+    },
+    jwdriveplayer: require('./images/jwdriveplayer.png'),
   },
   icon: {
     stars: require('./images/icon/stars.svg'),
