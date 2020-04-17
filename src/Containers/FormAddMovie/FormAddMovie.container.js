@@ -184,9 +184,27 @@ const FormAddMovieContainer = props => {
     return driveId;
   };
 
-  const handleSubmit = event => {
+  const POST_MOVIE = async data => {
+    await Jwplayer.POST_MOVIE(data)
+      .then(res => {
+        if (res) {
+          message.success('Success create player');
+          setDataMovie(res);
+          setIsShowResult(true);
+          setIsLoadingSubmit(false);
+          setFileSubtitles([]);
+        }
+      })
+      .catch(() =>
+        message.error(
+          "Can't create player, please refresh this page and try again."
+        )
+      );
+  };
+
+  const handleSubmit = async event => {
     event.preventDefault();
-    props.form.validateFields((err, values) => {
+    await props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoadingSubmit(true);
         message.info('Creating player...');
@@ -227,9 +245,40 @@ const FormAddMovieContainer = props => {
           subtitles = subtitlesArray;
         }
 
+        let backupDriveId = [];
+
+        await Jwplayer.GET_TOKEN().then(async token => {
+          if (token.access_token !== null) {
+            await Jwplayer.POST_DRIVE_COPY(
+              getDriveId(values.driveId),
+              token.access_token
+            )
+              .then(async resCopy => {
+                if (resCopy) {
+                  await Jwplayer.POST_PERMISSIONS(
+                    resCopy.id,
+                    token.access_token
+                  )
+                    .then(permissions => {
+                      if (permissions) {
+                        backupDriveId.push(resCopy.id);
+                      }
+                    })
+                    .catch(() => {
+                      return;
+                    });
+                }
+              })
+              .catch(() => {
+                return;
+              });
+          }
+        });
+
         let data = {
           title: values.title,
           driveId: getDriveId(values.driveId),
+          backupDriveId: backupDriveId,
           imdbId: values.imdbId,
           quality: values.quality,
           subtitles: subtitles,
@@ -237,28 +286,14 @@ const FormAddMovieContainer = props => {
           type: 'movie'
         };
 
-        Jwplayer.POST_MOVIE(data)
-          .then(res => {
-            if (res) {
-              message.success('Success create player');
-              setDataMovie(res);
-              setIsShowResult(true);
-              setIsLoadingSubmit(false);
-              setFileSubtitles([]);
-            }
-          })
-          .catch(() =>
-            message.error(
-              "Can't create player, please refresh this page and try again."
-            )
-          );
+        await POST_MOVIE(data);
       }
     });
   };
 
-  const handleSubmitSeries = event => {
+  const handleSubmitSeries = async event => {
     event.preventDefault();
-    props.form.validateFields((err, values) => {
+    await props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoadingSubmit(true);
         message.info('Creating player...');
@@ -299,9 +334,40 @@ const FormAddMovieContainer = props => {
           subtitles = subtitlesArray;
         }
 
+        let backupDriveId = [];
+
+        await Jwplayer.GET_TOKEN().then(async token => {
+          if (token.access_token !== null) {
+            await Jwplayer.POST_DRIVE_COPY(
+              getDriveId(values.driveId),
+              token.access_token
+            )
+              .then(async resCopy => {
+                if (resCopy) {
+                  await Jwplayer.POST_PERMISSIONS(
+                    resCopy.id,
+                    token.access_token
+                  )
+                    .then(permissions => {
+                      if (permissions) {
+                        backupDriveId.push(resCopy.id);
+                      }
+                    })
+                    .catch(() => {
+                      return;
+                    });
+                }
+              })
+              .catch(() => {
+                return;
+              });
+          }
+        });
+
         let data = {
           title: values.title,
           driveId: getDriveId(values.driveId),
+          backupDriveId: backupDriveId,
           imdbId: values.imdbId,
           quality: values.quality,
           subtitles: subtitles,
@@ -310,22 +376,7 @@ const FormAddMovieContainer = props => {
           episode: values.episode,
           type: 'series'
         };
-
-        Jwplayer.POST_MOVIE(data)
-          .then(res => {
-            if (res) {
-              message.success('Success create player');
-              setDataMovie(res);
-              setIsShowResult(true);
-              setIsLoadingSubmit(false);
-              setFileSubtitles([]);
-            }
-          })
-          .catch(() =>
-            message.error(
-              "Can't create player, please refresh this page and try again."
-            )
-          );
+        POST_MOVIE(data);
       }
     });
   };

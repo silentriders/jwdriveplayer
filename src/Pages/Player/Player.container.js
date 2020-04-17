@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import PlayerComponent from './Player.component';
 import Jwplayer from '../../Services/Jwplayer/Jwplayer';
@@ -23,6 +25,18 @@ const PlayerContainer = props => {
   });
 
   useEffect(() => {
+    console.log(
+      '%cStop!',
+      'color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold'
+    );
+    console.log(
+      '%cWhy you wanna see my systems ?',
+      'color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold'
+    );
+    console.log(
+      '%cLets code together dude... Dont hacking or hijacking, hacker ethic know attitude',
+      'color:red;font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;font-weight:bold'
+    );
     const getMovie = async () => {
       await Jwplayer.GET_MOVIE(props.match.params.id).then(async movie => {
         let subtitles = [];
@@ -36,13 +50,7 @@ const PlayerContainer = props => {
           });
         });
         await Jwplayer.GET_SOURCE(movie.driveId).then(async source => {
-          if (isEmpty(source.sources)) {
-            sources.push({
-              file: source.download.url,
-              label: 'Original',
-              type: 'video/mp4'
-            });
-          } else {
+          if (!isEmpty(source.sources)) {
             source.sources.map(source => {
               sources.push({
                 file: source.file,
@@ -50,8 +58,26 @@ const PlayerContainer = props => {
                 type: 'video/mp4'
               });
             });
+          } else {
+            await Jwplayer.GET_SOURCE(movie.backupDriveId[0]).then(async backupSource => {
+              download = backupSource.download
+              if (isEmpty(backupSource.sources)) {
+                sources.push({
+                  file: backupSource.download.url,
+                  label: 'Original',
+                  type: 'video/mp4'
+                });
+              } else {
+                backupSource.sources.map(source => {
+                  sources.push({
+                    file: source.file,
+                    label: source.label,
+                    type: 'video/mp4'
+                  });
+                });
+              }
+            });
           }
-          download = source.download;
           setDataMovie({
             movie,
             sources,
@@ -63,7 +89,6 @@ const PlayerContainer = props => {
     };
     getMovie();
   }, []);
-  // console.log(dataMovie);
 
   return (
     <div>
