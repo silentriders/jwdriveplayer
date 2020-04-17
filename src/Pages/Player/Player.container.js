@@ -50,6 +50,9 @@ const PlayerContainer = props => {
           });
         });
         await Jwplayer.GET_SOURCE(movie.driveId).then(async source => {
+          download = {
+            url: `https://www.googleapis.com/drive/v3/files/${movie.driveId}?alt=media&key=AIzaSyC-349q1U-bdyXXDsCqZLS99cwXyiJzKYs`
+          };
           if (!isEmpty(source.sources)) {
             source.sources.map(source => {
               sources.push({
@@ -59,26 +62,41 @@ const PlayerContainer = props => {
               });
             });
           } else {
-            await Jwplayer.GET_SOURCE(movie.backupDriveId[0]).then(async backupSource => {
-              download = backupSource.download
-              if (isEmpty(backupSource.sources)) {
-                sources.push({
-                  file: backupSource.download.url,
-                  label: 'Original',
-                  type: 'video/mp4'
-                });
-              } else {
-                backupSource.sources.map(source => {
-                  sources.push({
-                    file: source.file,
-                    label: source.label,
-                    type: 'video/mp4'
-                  });
-                });
-              }
-            });
+            if (!isEmpty(movie.backupDriveId)) {
+              await Jwplayer.GET_SOURCE(movie.backupDriveId[0]).then(
+                async backupSource => {
+                  download = {
+                    url: `https://www.googleapis.com/drive/v3/files/${movie.backupDriveId[0]}?alt=media&key=AIzaSyC-349q1U-bdyXXDsCqZLS99cwXyiJzKYs`
+                  };
+                  if (isEmpty(backupSource.sources)) {
+                    sources.push({
+                      file: download.url,
+                      label: 'Original',
+                      type: 'video/mp4',
+                      default: true
+                    });
+                  } else {
+                    backupSource.sources.map(source => {
+                      sources.push({
+                        file: source.file,
+                        label: source.label,
+                        type: 'video/mp4'
+                      });
+                    });
+                  }
+                }
+              );
+            } else {
+              sources.push({
+                file: download.url,
+                label: 'Original',
+                type: 'video/mp4',
+                default: true
+              });
+            }
           }
           setDataMovie({
+            ...dataMovie,
             movie,
             sources,
             subtitles,

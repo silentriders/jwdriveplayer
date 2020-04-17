@@ -15,6 +15,14 @@ const PlayerComponent = props => {
       title: !isEmpty(dataMovie.movie) && dataMovie.movie.title,
       image: poster,
       sources: dataMovie?.sources,
+      // sources: [
+      //   {
+      //     file: dataMovie.download.url,
+      //     label: 'Original',
+      //     type: 'video/mp4',
+      //     default: true
+      //   }
+      // ],
       tracks: dataMovie?.subtitles
     }
   ];

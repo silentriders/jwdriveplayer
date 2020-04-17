@@ -1,8 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"> 
 <url>
+  <loc>https://jwdriveplayer.netlify.com</loc>
+  <priority>0.9</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
   <loc>https://jwdriveplayer.netlify.com/keyword/google-drive-streaming-links</loc>
   <priority>0.9</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/gdriveplayer.me</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/gdriveplayer.us</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/jwplayer-google-drive</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/stream-drive-to-jwplayer</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/generator-streaming-google-drive</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/proxy-google-drive-generator</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/stream-google-drive-to-different-quality</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/embed-drive-movie-streaming</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/stream-jwplayer-drive-embed</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/server-for-streaming-movie</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/indoxxi-bioskopkeren-layarkaca21-ganool</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/cara-membuat-website-streaming-tanpa-ribet</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/jwplayer-google-drive-bypass-limit</loc>
+  <priority>0.5</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://jwdriveplayer.netlify.com/keyword/jwplayer-google-drive-bypass-convert</loc>
+  <priority>0.5</priority>
   <changefreq>daily</changefreq>
 </url>
 </urlset>

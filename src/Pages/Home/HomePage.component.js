@@ -20,6 +20,9 @@ const HomePageComponent = () => {
           <h1>Jwdriveplayer</h1>
           <h3>Free google drive streaming to jwplayer</h3>
           <p>Jwdriveplayer is a free service to get google drive streaming link, get redirector.googlevideo.com files is streamable with jwplayer that support on any browser and mobile. Also you can add subtitle, your files will be encrypted to more secure and no one knows. We provide player that not contains ads. it will makes your users happy because no ads while their watch movies.</p>
+          <p>When your file deleted on your google drive, no matter this server still can play your video properly.</p>
+          <p>If you wanna copy drive from someone but their files is limited and cannot be download. No matter, you can paste their link on this server and the systems can play video to you.</p>
+          <p>New generation server streaming media, bypass limit, bypas convert video on google drive.</p>
         </Col>
         <Col span={12}>
           <img src={Assets.images.jwdriveplayer} alt="JWDRIVEPLAYER-GOOGLE-STREAMING-LINKS" width="100%" />
@@ -46,12 +49,13 @@ const HomePageComponent = () => {
         <Col span={24}>
           <h1>Jwdriveplayer</h1>
           <h3>Grab google drive streaming links (redirector.googlevideo.com/videoplayback?..)</h3>
-          <p>I want to get stream link from google drive without playing it on web browser. The format link like this. https://r6---sn-npo7zn7k.c.docs.google.com/videoplayback. This website is similar like similar like gdriveplayer.me, gdriveplayer.us, juicycode and other website. But the different in this website is is free no ads on player</p>
+          <p>I want to get stream link from google drive without playing it on web browser. The format link like this. https://r6---sn-npo7zn7k.c.docs.google.com/videoplayback. This website is similar like gdriveplayer, wowza, apicdn vip, hydrax, juicygdrive. But the different in this website is is free no ads on player. When you delete your original file on your drive, no matter it can still play in this server.</p>
+          <p>If you have trouble using this systems, please report it to chat on the right</p>
           <Link to="/keyword/google-drive-streaming-links">google-drive-streaming-links</Link>
           <Link to="/keyword/redirector.googlevideo.com">redirector.googlevideo.com</Link>
           <Link to="/keyword/gdriveplayer.me">gdriveplayer.me</Link>
-          <Link to="/keyword/ gdriveplayer.us"> gdriveplayer.us</Link>
-          <Link to="/keyword gdriveplayer.net"> gdriveplayer.net</Link>
+          <Link to="/keyword/gdriveplayer.us"> gdriveplayer.us</Link>
+          <Link to="/keyword/gdriveplayer.net"> gdriveplayer.net</Link>
           <Link to="/keyword/jwplayer-google-drive">jwplayer-google-drive</Link>
           <Link to="/keyword/stream-drive-to-jwplayer">stream-drive-to-jwplayer</Link>
           <Link to="/keyword/generator-streaming-google-drive">generator-streaming-google-drive</Link>
@@ -59,6 +63,11 @@ const HomePageComponent = () => {
           <Link to="/keyword/stream-google-drive-to-different-quality">stream-google-drive-to-different-quality</Link>
           <Link to="/keyword/embed-drive-movie-streaming">embed-drive-movie-streaming</Link>
           <Link to="/keyword/stream-jwplayer-drive-embed">stream-jwplayer-drive-embed</Link>
+          <Link to="/keyword/server-for-streaming-movie">server-for-streaming-movie</Link>
+          <Link to="/keyword/indoxxi-bioskopkeren-layarkaca21-ganool">indoxxi-bioskopkeren-layarkaca21-ganool</Link>
+          <Link to="/keyword/cara-membuat-website-streaming-tanpa-ribet">cara-membuat-website-streaming-tanpa-ribet</Link>
+          <Link to="/keyword/jwplayer-google-drive-bypass-limit">jwplayer-google-drive-bypass-limit</Link>
+          <Link to="/keyword/jwplayer-google-drive-bypass-convert">jwplayer-google-drive-bypass-convert</Link>
         </Col>
       </Row>
       <Row>
