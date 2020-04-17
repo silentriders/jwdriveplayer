@@ -61,6 +61,64 @@ const HomePageComponent = () => {
           <Link to="/keyword/stream-jwplayer-drive-embed">stream-jwplayer-drive-embed</Link>
         </Col>
       </Row>
+      <Row>
+        <Col span={24}>
+        <h2 id="changelog">Changelog</h2>
+<p><strong>17 Apr, 2020</strong></p>
+<ul>
+<li>Add ability to stream when drive limit or excedeed quota (03:48 PM)</li>
+</ul>
+<p><strong>16 Apr, 2020</strong></p>
+<ul>
+<li>can play when processing convert (08:40 PM)</li>
+</ul>
+<p><strong>15 Apr, 2020</strong></p>
+<ul>
+<li><p>support url drive with open?id= (05:08 PM)</p>
+</li>
+<li><p>add helmet, float button chat (04:52 PM)</p>
+</li>
+<li>compress image preview (11:37 AM)</li>
+<li>add initial state for faster loading (10:55 AM)</li>
+</ul>
+<p><strong>14 Apr, 2020</strong></p>
+<ul>
+<li><p>add iframe code when finish generate (00:28 AM)</p>
+</li>
+<li><p>add cors anywhere (00:00 AM)</p>
+</li>
+<li><p>delete props sampah (10:52 PM)</p>
+</li>
+<li><p>add jwplayer, now can play sources and subtitles (10:49 PM)</p>
+</li>
+<li><p>change title (4:25 PM)</p>
+</li>
+<li><p>Add Movies Series Page, Add Player Page (04:24 PM)</p>
+</li>
+</ul>
+<p><strong>05 Apr, 2020</strong></p>
+<ul>
+<li><p>Merge branch &#39;dev&#39; into &#39;master&#39; ( 10:09 PM )</p>
+</li>
+<li><p>Dev ( 04:17 AM )</p>
+</li>
+</ul>
+<p><strong>02 Apr, 2020</strong></p>
+<ul>
+<li>delete styled-components replace with emotion ( 10:09 PM )</li>
+<li>Deleting package unnecessary ( 09:06 PM )</li>
+</ul>
+<p><strong>01 Apr, 2020</strong></p>
+<ul>
+<li>CODEBASE FIX ( 11 : 56 PM )</li>
+</ul>
+<p><strong>31 Mar, 2020</strong></p>
+<ul>
+<li>CODEBASE FE ( 03:59 AM )</li>
+</ul>
+
+        </Col>
+      </Row>
     </div>
   );
 };
