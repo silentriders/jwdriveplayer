@@ -12,14 +12,15 @@ const PlayerContainer = props => {
     movie: {
       image: Assets.no_preview.image2
     },
-    sources: [
-      {
-        file: Assets.no_preview.video,
-        label: 'Not found',
-        type: 'video/mp4',
-        default: true
-      }
-    ],
+    // sources: [
+    //   {
+    //     file: Assets.no_preview.video,
+    //     label: 'Not found',
+    //     type: 'video/mp4',
+    //     default: true
+    //   }
+    // ],
+    sources: [],
     subtitles: [],
     download: {}
   });
