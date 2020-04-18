@@ -399,6 +399,8 @@ const FormAddMovieContainer = props => {
     setSubtitleType(value);
   };
 
+  console.log(dataMovie)
+
   return (
     <div>
       <FormAddMovieComponent
