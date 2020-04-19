@@ -223,6 +223,7 @@ const FormAddMovieContainer = props => {
     } else {
       driveId = array.length > 5 ? array[5] : array[0];
     }
+    console.log(driveId)
     return driveId;
   };
 
@@ -322,6 +323,7 @@ const FormAddMovieContainer = props => {
         });
 
         let data = {
+          enc: values.enc === 'yes',
           title: values.title,
           driveId: getDriveId(values.driveId),
           backupDriveId: backupDriveId,
@@ -333,7 +335,9 @@ const FormAddMovieContainer = props => {
         };
 
         if(values.enc === 'yes'){
-          data.driveId = encb64(values.driveId)
+          data.driveId = encb64(getDriveId(values.driveId))
+        }else{
+          data.enc = false
         }
 
         await POST_MOVIE(data);
@@ -417,6 +421,7 @@ const FormAddMovieContainer = props => {
         });
 
         let data = {
+          enc: values.enc === 'yes',
           title: values.title,
           driveId: getDriveId(values.driveId),
           backupDriveId: backupDriveId,
@@ -430,6 +435,9 @@ const FormAddMovieContainer = props => {
         };
         if(values.enc === 'yes'){
           data.driveId = encb64(getDriveId(values.driveId))
+        }
+        else{
+          data.enc = false
         }
         POST_MOVIE(data);
       }
@@ -453,8 +461,6 @@ const FormAddMovieContainer = props => {
   const onChangeSubtitle = value => {
     setSubtitleType(value);
   };
-
-  console.log(dataMovie);
 
   return (
     <div>
