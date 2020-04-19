@@ -261,7 +261,7 @@ const FormAddMovieContainer = props => {
                   )
                     .then(permissions => {
                       if (permissions) {
-                        backupDriveId.push(resCopy.id);
+                        backupDriveId.push(new Buffer.from(JSON.stringify(window.btoa(getDriveId(resCopy.id)))).toString('base64'));
                       }
                     })
                     .catch(() => {
@@ -277,7 +277,7 @@ const FormAddMovieContainer = props => {
 
         let data = {
           title: values.title,
-          driveId: getDriveId(values.driveId),
+          driveId: new Buffer.from(JSON.stringify(getDriveId(window.btoa(values.driveId)))).toString('base64'),
           backupDriveId: backupDriveId,
           imdbId: values.imdbId,
           quality: values.quality,

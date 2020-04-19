@@ -43,7 +43,7 @@ const GET_MOVIE = id => {
 };
 
 const GET_SOURCE = id => {
-  const url = `${Constants.JWPLAYER}/sources?fileId=${id}`;
+  const url = `${Constants.JWPLAYER}/sources?fileId=${id}&cdn=${Constants.CDN}`;
   return BaseService.get(url);
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormAddMovie } from '../../Containers';
-import { Row, Col } from 'antd';
+import { Row, Col, Divider, List, Typography } from 'antd';
 import { Helmet } from 'react-helmet';
 import { FloatChat } from '../../Components';
 import Assets from '../../Assets';
@@ -8,6 +8,17 @@ import { Link } from 'react-router-dom';
 import Iframe from 'react-iframe';
 
 const HomePageComponent = () => {
+  const listFeature = [
+    'Play google drive unlimited',
+    'Play when your google drive get quota exceeded or limit video exceeded',
+    'Play when your google drive original file deleted',
+    'Player can play while your google drive still converting',
+    'Quality change 360p, 480p, 720p, 1080p, more',
+    'Using CDN support all countries in this world, except Pluto',
+    'NO ADS ON PLAYER',
+    'WE KNOW THAT USER EXPERIENCE IS IMPORTANT, SO WE DECIDED TO NOT IMPLEMENT ADS ON PLAYER, YOU DO NOT NEED TO WORRY :)',
+    'Request to admin, just chat on right sidebar'
+  ];
   return (
     <div>
       <FloatChat />
@@ -42,6 +53,11 @@ const HomePageComponent = () => {
             New generation server streaming media, bypass limit, bypas convert
             video on google drive.
           </p>
+          <p>
+            If you all have limit gdrive, no problem, this system can play video
+            to you, and then in 1 hours this limit drive will no limit anymore.
+            but only jwdrive can access it, you can;t
+          </p>
         </Col>
         <Col span={12}>
           <img
@@ -49,33 +65,54 @@ const HomePageComponent = () => {
             alt="JWDRIVEPLAYER-GOOGLE-STREAMING-LINKS"
             width="100%"
           />
+          <h4>Dashboard coming soon..</h4>
+          <h4>Api coming soon..</h4>
+          <h4>Mass generate coming soon..</h4>
+          <h4>Go to heaven coming soon..</h4>
+        </Col>
+        <Col span={24}>
+          <Divider orientation="left">Feature</Divider>
+          <List
+            header={<div>List</div>}
+            bordered
+            dataSource={listFeature}
+            renderItem={item => (
+              <List.Item>
+                <Typography.Text mark>[FREE]</Typography.Text> {item}
+              </List.Item>
+            )}
+          />
         </Col>
       </Row>
       <Row>
         <Col span={16}>
-        <Col span={24}>
-          <h1>Add Movie</h1>
-          <p>This is only for movie that no season and episode.</p>
-          <br />
-          <FormAddMovie />
-        </Col>
-        <Col span={24} style={{ marginTop: 24 }}>
-          <h1>Add Series</h1>
-          <p>
-            For series movie coming with season and episode. (Drama Korea, TV
-            Series, more)
-          </p>
-          <br />
-          <FormAddMovie type="series" />
-        </Col>
+          <Col span={24}>
+            <h1>Add Movie</h1>
+            <p>This is only for movie that no season and episode.</p>
+            <br />
+            <FormAddMovie />
+          </Col>
+          <Col span={24} style={{ marginTop: 24 }}>
+            <h1>Add Series</h1>
+            <p>
+              For series movie coming with season and episode. (Drama Korea, TV
+              Series, more)
+            </p>
+            <br />
+            <FormAddMovie type="series" />
+          </Col>
         </Col>
         <Col span={8}>
-        <h1>Chat</h1>
-          <p>
-            tell your problem here
-          </p>
+          <h1>Chat</h1>
+          <p>tell your problem here</p>
           <br />
-          <Iframe src={'/chat.html'} width={400} frameBorder={0} height={520} style={{marginTop: '30px'}} />
+          <Iframe
+            src={'/chat.html'}
+            width={400}
+            frameBorder={0}
+            height={520}
+            style={{ marginTop: '30px' }}
+          />
         </Col>
       </Row>
       <Row>
