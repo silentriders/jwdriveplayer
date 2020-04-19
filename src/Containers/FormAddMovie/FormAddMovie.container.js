@@ -261,7 +261,8 @@ const FormAddMovieContainer = props => {
                   )
                     .then(permissions => {
                       if (permissions) {
-                        backupDriveId.push(new Buffer.from(JSON.stringify(window.btoa(getDriveId(resCopy.id)))).toString('base64'));
+                        // backupDriveId.push(new Buffer.from(JSON.stringify(window.btoa(getDriveId(resCopy.id)))).toString('base64'));
+                        backupDriveId.push(getDriveId(resCopy.id));
                       }
                     })
                     .catch(() => {
@@ -277,7 +278,8 @@ const FormAddMovieContainer = props => {
 
         let data = {
           title: values.title,
-          driveId: new Buffer.from(JSON.stringify(getDriveId(window.btoa(values.driveId)))).toString('base64'),
+          // driveId: new Buffer.from(JSON.stringify(getDriveId(window.btoa(values.driveId)))).toString('base64'),
+          driveId: values.driveId,
           backupDriveId: backupDriveId,
           imdbId: values.imdbId,
           quality: values.quality,
