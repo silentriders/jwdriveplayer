@@ -221,6 +221,13 @@ const FormAddMovieComponent = props => {
           rows={2}
           value={`<iframe src="https://jwdriveplayer.netlify.com/play/${dataMovie._id}" frameborder="0" width="100%" height="400" allowfullscreen="allowfullscreen"></iframe>`}
         />
+         {/* <br />
+        <br />
+        <p>Download link</p>
+        <Input.TextArea
+          rows={2}
+          value={`https://www.googleapis.com/drive/v3/files/${dataMovie?.backupDriveId ? dataMovie?.backupDriveId[0] : dataMovie?.driveId}?alt=media&key=AIzaSyC-349q1U-bdyXXDsCqZLS99cwXyiJzKYs`}
+        /> */}
       </ResultPreview>
     </WrapperFormAddMovie>
   );

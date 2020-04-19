@@ -45,7 +45,7 @@ const UploadDocumentContainer = props => {
 
   const uploadButton = () => (
     <UploadButton>
-      Click to Upload
+      Browse
     </UploadButton>
   );
 

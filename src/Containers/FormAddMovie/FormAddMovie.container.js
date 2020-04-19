@@ -261,7 +261,8 @@ const FormAddMovieContainer = props => {
                   )
                     .then(permissions => {
                       if (permissions) {
-                        backupDriveId.push(resCopy.id);
+                        // backupDriveId.push(new Buffer.from(JSON.stringify(window.btoa(getDriveId(resCopy.id)))).toString('base64'));
+                        backupDriveId.push(getDriveId(resCopy.id));
                       }
                     })
                     .catch(() => {
@@ -277,7 +278,8 @@ const FormAddMovieContainer = props => {
 
         let data = {
           title: values.title,
-          driveId: getDriveId(values.driveId),
+          // driveId: new Buffer.from(JSON.stringify(getDriveId(window.btoa(values.driveId)))).toString('base64'),
+          driveId: values.driveId,
           backupDriveId: backupDriveId,
           imdbId: values.imdbId,
           quality: values.quality,
@@ -398,6 +400,8 @@ const FormAddMovieContainer = props => {
   const onChangeSubtitle = value => {
     setSubtitleType(value);
   };
+
+  console.log(dataMovie)
 
   return (
     <div>
