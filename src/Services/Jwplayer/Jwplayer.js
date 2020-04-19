@@ -37,14 +37,23 @@ const POST_MOVIE = body => {
   return BaseService.post(url, body);
 };
 
-const GET_MOVIE = id => {
-  const url = `${Constants.JWPLAYER}/movies/${id}`;
-  return BaseService.get(url);
+const GET_MOVIE = (id, server, token) => {
+  const url = `${server}/movies/${id}`;
+  const JwdriveEnd = _createAxiosInterceptor(
+    server, token
+  );
+  return JwdriveEnd.get(url)
 };
 
-const GET_SOURCE = id => {
-  const url = `${Constants.JWPLAYER}/sources?fileId=${id}&cdn=${Constants.CDN}`;
-  return BaseService.get(url);
+const GET_SOURCE = (id, enc = 'yes', server, cdn, token) => {
+  let url = `${server}/sources?fileId=${id}&cdn=${cdn}&enc=${enc}`;
+  if (cdn === null){
+    url = `${server}/sources?fileId=${id}&enc=${enc}`;
+  }
+  const JwdriveEnd = _createAxiosInterceptor(
+    server, token
+  );
+  return JwdriveEnd.get(url)
 };
 
 const GET_TOKEN = () => {
@@ -74,6 +83,16 @@ const POST_PERMISSIONS = (driveId, token) => {
   });
 };
 
+const POST_LOGIN = (server, body) => {
+  const url = `${server}/login`;
+  return BaseService.post(url, body);
+}
+
+const GET_CONFIG = (verifId) => {
+  const url = `${Constants.JWPLAYER}/configs/${verifId}`;
+  return BaseService.get(url);
+}
+
 export default {
   POST_MOVIE,
   GET_MOVIE,
@@ -81,5 +100,7 @@ export default {
   GET_PING,
   GET_TOKEN,
   POST_DRIVE_COPY,
-  POST_PERMISSIONS
+  POST_PERMISSIONS,
+  POST_LOGIN,
+  GET_CONFIG
 };
