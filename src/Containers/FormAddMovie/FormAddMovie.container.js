@@ -45,7 +45,28 @@ const FormAddMovieContainer = props => {
     }
   ];
 
+  const encOpt = [
+    {
+      id: 0,
+      name: 'no'
+    },
+    {
+      id: 1,
+      name: 'yes'
+    }
+  ];
+
   const formField = [
+    {
+      label: 'Encrypt to hidden your drive id',
+      required: false,
+      field_name: 'enc',
+      type: 'radio',
+      size: 24,
+      initialValue: 'yes',
+      placeholder: 'yes',
+      optional: encOpt
+    },
     {
       label: 'Title',
       required: true,
@@ -97,6 +118,16 @@ const FormAddMovieContainer = props => {
   ];
 
   const formFieldSeries = [
+    {
+      label: 'Encrypt to hidden your drive id',
+      required: false,
+      field_name: 'enc',
+      type: 'radio',
+      size: 24,
+      initialValue: 'yes',
+      placeholder: 'yes',
+      optional: encOpt
+    },
     {
       label: 'Title',
       required: true,
@@ -164,6 +195,17 @@ const FormAddMovieContainer = props => {
         'ex. https://image.tmdb.org/t/p/original/vkFRctGpbjL0I6UlJfveETrBVCm.jpg'
     }
   ];
+
+  const reverseStr = str => {
+    var splitString = str.split("");
+    var reverseArray = splitString.reverse();
+    var joinArray = reverseArray.join("");
+    return joinArray;
+  }
+
+  const encb64 = str => {
+    return new Buffer.from(window.btoa(reverseStr(str))).toString('base64');
+  };
 
   const getDriveId = url => {
     let parsing = _.chain(url)
@@ -261,8 +303,11 @@ const FormAddMovieContainer = props => {
                   )
                     .then(permissions => {
                       if (permissions) {
-                        // backupDriveId.push(new Buffer.from(JSON.stringify(window.btoa(getDriveId(resCopy.id)))).toString('base64'));
-                        backupDriveId.push(getDriveId(resCopy.id));
+                        if (values.enc === 'yes') {
+                          backupDriveId.push(encb64(getDriveId(resCopy.id)));
+                        } else {
+                          backupDriveId.push(getDriveId(resCopy.id));
+                        }
                       }
                     })
                     .catch(() => {
@@ -278,8 +323,7 @@ const FormAddMovieContainer = props => {
 
         let data = {
           title: values.title,
-          // driveId: new Buffer.from(JSON.stringify(getDriveId(window.btoa(values.driveId)))).toString('base64'),
-          driveId: values.driveId,
+          driveId: getDriveId(values.driveId),
           backupDriveId: backupDriveId,
           imdbId: values.imdbId,
           quality: values.quality,
@@ -287,6 +331,10 @@ const FormAddMovieContainer = props => {
           image: values.image,
           type: 'movie'
         };
+
+        if(values.enc === 'yes'){
+          data.driveId = encb64(values.driveId)
+        }
 
         await POST_MOVIE(data);
       }
@@ -351,8 +399,10 @@ const FormAddMovieContainer = props => {
                     token.access_token
                   )
                     .then(permissions => {
-                      if (permissions) {
-                        backupDriveId.push(resCopy.id);
+                      if (values.enc === 'yes') {
+                        backupDriveId.push(encb64(getDriveId(resCopy.id)));
+                      } else {
+                        backupDriveId.push(getDriveId(resCopy.id));
                       }
                     })
                     .catch(() => {
@@ -378,6 +428,9 @@ const FormAddMovieContainer = props => {
           episode: values.episode,
           type: 'series'
         };
+        if(values.enc === 'yes'){
+          data.driveId = encb64(getDriveId(values.driveId))
+        }
         POST_MOVIE(data);
       }
     });
@@ -401,7 +454,7 @@ const FormAddMovieContainer = props => {
     setSubtitleType(value);
   };
 
-  console.log(dataMovie)
+  console.log(dataMovie);
 
   return (
     <div>
