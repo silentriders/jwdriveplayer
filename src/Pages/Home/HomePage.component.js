@@ -69,6 +69,9 @@ const HomePageComponent = () => {
           <h4>Api coming soon..</h4>
           <h4>Mass generate coming soon..</h4>
           <h4>Go to heaven coming soon..</h4>
+          <br/>
+          <p>Want to help buy a good server for jwdriveplayer ? Click below for donation</p>
+          <a href="https://www.buymeacoffee.com/jwdriveplayer" rel="noopener noreferrer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style={{height: '30px !important', width: '150px !important' }} /></a>
         </Col>
         <Col span={24}>
           <Divider orientation="left">Feature</Divider>
