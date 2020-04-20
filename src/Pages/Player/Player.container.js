@@ -25,6 +25,22 @@ const PlayerContainer = props => {
     download: {}
   });
 
+  const reverseStr = str => {
+    const splitString = str.split('')
+    const reverseArray = splitString.reverse()
+    const joinArray = reverseArray.join('')
+    return joinArray
+  }
+
+  const decDrive = str => {
+    return reverseStr(
+      new Buffer.from(
+        new Buffer.from(str, 'base64').toString('ascii'),
+        'base64'
+      ).toString('ascii')
+    )
+  }
+
   useEffect(() => {
     console.log(
       '%cStop!',
@@ -40,7 +56,7 @@ const PlayerContainer = props => {
     );
     const getMovie = async () => {
       let token = null;
-      let siteVerified = '5e9cb46c376b2e25547fe23d';
+      let siteVerified = '5e9cb0e2a3363425540bb828';
       let driveKey = null;
       let server = null
       let cdn = null
@@ -71,7 +87,7 @@ const PlayerContainer = props => {
               await Jwplayer.GET_SOURCE(movie.driveId, movie.enc, server, cdn, token).then(
                 async source => {
                   download = {
-                    url: `https://www.googleapis.com/drive/v3/files/${movie.driveId}?alt=media&key=${driveKey}`
+                    url: `https://www.googleapis.com/drive/v3/files/${decDrive(movie.driveId)}?alt=media&key=${driveKey}`
                   };
                   if (!isEmpty(source.sources)) {
                     source.sources.map(source => {
@@ -86,7 +102,7 @@ const PlayerContainer = props => {
                       await Jwplayer.GET_SOURCE(movie.backupDriveId[0], movie.enc, server, cdn, token).then(
                         async backupSource => {
                           download = {
-                            url: `https://www.googleapis.com/drive/v3/files/${movie.backupDriveId[0]}?alt=media&key=${driveKey}`
+                            url: `https://www.googleapis.com/drive/v3/files/${decDrive(movie.backupDriveId[0])}?alt=media&key=${driveKey}`
                           };
                           if (isEmpty(backupSource.sources)) {
                             sources.push({
