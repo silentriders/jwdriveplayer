@@ -32,11 +32,6 @@ const PlayerComponent = props => {
     }
   ];
 
-  const customProps = {
-    sharing: {
-      sites: ['facebook', 'twitter']
-    }
-  };
 
   const onReady = () => {
     const player = window.jwplayer('player');
@@ -46,7 +41,7 @@ const PlayerComponent = props => {
     player.addButton(iconPath, tooltipText, onClickDownload, buttonId);
     player.setVolume(80);
     player.once('play', function() {
-      let cookieData = Cookies.get('resumevideodata');
+      let cookieData = Cookies.get(`resume_${dataMovie.movie._id}`);
       if (!cookieData) {
         // eslint-disable-next-line no-console
         console.log('Play at beginning');
@@ -62,7 +57,7 @@ const PlayerComponent = props => {
 
     player.on('time', function(e) {
       Cookies.set(
-        'resumevideodata',
+        `resume_${dataMovie.movie._id}`,
         `${Math.floor(e.position)}:${player.getDuration()}`,
         1
       );
@@ -72,8 +67,8 @@ const PlayerComponent = props => {
 
 
   const getSourceDownload = () => (
-    dataMovie?.sources.map(item => (
-     <ButtonDownload>
+    dataMovie?.sources.map((item,key) => (
+     <ButtonDownload key={key}>
         <a className="download-button" target="_blank" rel="noopener noreferrer" href={item.file}>{item.label}</a>
      </ButtonDownload>
     ))
@@ -102,7 +97,6 @@ const PlayerComponent = props => {
             playerScript="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"
             playlist={playlist}
             displaytitle={true}
-            customProps={customProps}
           />
           {_modalDownload()}
         </div>
