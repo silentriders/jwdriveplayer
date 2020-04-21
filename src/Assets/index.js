@@ -24,7 +24,10 @@ export default {
     trending_red: require('./images/icon/trending-red.svg'),
     heart_red: require('./images/icon/heart-red.svg'),
     timer_red: require('./images/icon/timer-red.svg'),
-    chat: require('./images/icon/chat.svg')
+    chat: require('./images/icon/chat.svg'),
+    download: require('./images/icon/download.svg'),
+    rewind: require('./images/icon/rewind.svg'),
+    rewind_hover: require('./images/icon/rewind-hover.svg')
   },
   no_preview: {
     image: require('./no-preview.png'),

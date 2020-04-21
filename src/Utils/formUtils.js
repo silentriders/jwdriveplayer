@@ -46,7 +46,7 @@ const _initialValue = (type, field, initialValue) => {
 
 const _mappingRadio = items =>
   items.map(item => (
-    <Radio value={item.name} key={item.id}>
+    <Radio value={item.name} key={item.id} disabled={item.disabled}>
       {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
     </Radio>
   ));

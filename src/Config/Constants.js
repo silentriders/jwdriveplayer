@@ -13,5 +13,5 @@ export default {
   GDRIVEPLAYER: 'http://database.gdriveplayer.us/player.php?imdb=',
   BASE_FIREBASE: 'https://firebasestorage.googleapis.com/v0/b/akehdrakor.appspot.com/o',
   JWPLAYER: 'https://jwdrive-qooxi.herokuapp.com',
-  // JWPLAYER: 'http://localhost:3001's
+  // JWPLAYER: 'http://localhost:3001'
 }

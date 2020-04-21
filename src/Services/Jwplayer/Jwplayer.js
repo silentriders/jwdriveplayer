@@ -93,6 +93,10 @@ const GET_CONFIG = (verifId) => {
   return BaseService.get(url);
 }
 
+const GET_DOWNLOAD = (url) => {
+  return BaseService.get(url);
+}
+
 export default {
   POST_MOVIE,
   GET_MOVIE,
@@ -102,5 +106,6 @@ export default {
   POST_DRIVE_COPY,
   POST_PERMISSIONS,
   POST_LOGIN,
-  GET_CONFIG
+  GET_CONFIG,
+  GET_DOWNLOAD
 };

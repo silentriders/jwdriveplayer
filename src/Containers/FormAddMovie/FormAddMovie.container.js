@@ -48,7 +48,8 @@ const FormAddMovieContainer = props => {
   const encOpt = [
     {
       id: 0,
-      name: 'no'
+      name: 'no',
+      disabled: true
     },
     {
       id: 1,
@@ -223,7 +224,7 @@ const FormAddMovieContainer = props => {
     } else {
       driveId = array.length > 5 ? array[5] : array[0];
     }
-    console.log(driveId)
+
     return driveId;
   };
 
