@@ -419,7 +419,7 @@ const FormAddMovieContainer = props => {
                 return;
               });
           }
-        });
+        }).catch(()=>{message.error("Cannot create player, please try again or contact admin")});
 
         let data = {
           enc: values.enc === 'yes',
