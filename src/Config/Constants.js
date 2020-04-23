@@ -12,6 +12,6 @@ export default {
   BASE_TMDB: 'https://api.themoviedb.org/3',
   GDRIVEPLAYER: 'http://database.gdriveplayer.us/player.php?imdb=',
   BASE_FIREBASE: 'https://firebasestorage.googleapis.com/v0/b/akehdrakor.appspot.com/o',
-  JWPLAYER: 'https://jwdrive-eu-2.herokuapp.com',
+  JWPLAYER: 'https://jwdriveplayer.herokuapp.com',
   // JWPLAYER: 'http://localhost:3001'
 }
