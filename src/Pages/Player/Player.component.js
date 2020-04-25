@@ -7,8 +7,7 @@ import { Spin, message, Modal } from 'antd';
 import Cookies from '../../Utils/Cookies';
 
 const PlayerComponent = props => {
-  const { dataMovie, showDownload, onClickDownload,
-    onCloseDownload } = props;
+  const { dataMovie, showDownload, onClickDownload, onCloseDownload } = props;
   let poster = Assets.no_preview.image2;
 
   if (dataMovie?.movie?.image !== '') {
@@ -22,7 +21,7 @@ const PlayerComponent = props => {
       sources: dataMovie?.sources,
       // sources: [
       //   {
-      //     file: dataMovie?.download?.url,
+      //     file: 'http://localhost:3001/download?fileId=1ob2IzjrEB5kodfwJ9zOGeXyn_wHQwXDN&token=ya29.a0Ae4lvC2rbVXDAYNw4gBvR_D30yow4qs7hIqHW6XrAeIs0qQNUHtn4uyRKIx_EMwO-kbpvFmzZpn-hEpOgJifrSJMqBU1_mcTGFhsTbOzBIO9jKEn_FFGOjQVaK_KK_r1AlnVgzQM0Vx5TJj2_nGnsuVUjk9QpRxlITY2',
       //     label: 'Original',
       //     type: 'video/mp4',
       //     default: true
@@ -32,13 +31,14 @@ const PlayerComponent = props => {
     }
   ];
 
-
   const onReady = () => {
     const player = window.jwplayer('player');
     const buttonId = 'download-video-button';
     const iconPath = Assets.icon.download;
     const tooltipText = `Download Video ${dataMovie.movie.title}`;
-    player.addButton(iconPath, tooltipText, onClickDownload, buttonId);
+    if(dataMovie.movie.showDownload){
+      player.addButton(iconPath, tooltipText, onClickDownload, buttonId);
+    }
     player.setVolume(80);
     player.once('play', function() {
       let cookieData = Cookies.get(`resume_${dataMovie.movie._id}`);
@@ -65,14 +65,19 @@ const PlayerComponent = props => {
     player.pause();
   };
 
-
-  const getSourceDownload = () => (
-    dataMovie?.sources.map((item,key) => (
-     <ButtonDownload key={key}>
-        <a className="download-button" target="_blank" rel="noopener noreferrer" href={item.file}>{item.label}</a>
-     </ButtonDownload>
-    ))
-  )
+  const getSourceDownload = () =>
+    dataMovie?.sources.map((item, key) => (
+      <ButtonDownload key={key}>
+        <a
+          className="download-button"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={item.file}
+        >
+          {item.label}
+        </a>
+      </ButtonDownload>
+    ));
 
   const _modalDownload = () => (
     <Modal

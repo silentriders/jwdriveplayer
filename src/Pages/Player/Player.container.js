@@ -68,54 +68,45 @@ const PlayerContainer = props => {
       'font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;'
     );
     const getMovie = async () => {
-      let token = null;
+      let token =
+        '6384af13bfe11434e2409adb43dc0095033c3997bdd2ad5f1e3f06763f17baf331ec76ae3300c421da2886be89374cf8888d205444b24c3c20d2d7010964b10105d4cd401d3c5cca1f5c052c323b9652fb7e008693265fd2062403ee3e32f425a6bf9f484b8c1de8179dd438bd63d5422cf45fddbc3ebaede4801b79519c6208e33ed182fc1c097f3f22617b52530f3fcf1e7ff9d820469b747e00b74946028f055a25dc121e46c8341f47f1dfaa946497c0065021c503e4a3924c37cd16ca3979f8586e45658459f7e7f45263ece617';
       let siteVerified = '5e9cb46c376b2e25547fe23d';
-      let driveKey = null;
-      let server = null;
-      let cdn = null;
-      let body = {
-        email: 'admin@jwdriveplayer.com',
-        password: 'ade12561256'
-      };
+      let server = 'https://jwdriveplayer.herokuapp.com';
+      let cdn = 'https://jwdriveplayer.herokuapp.com';
+      let token2 = null;
 
       await Jwplayer.GET_CONFIG(siteVerified).then(async config => {
-        await Jwplayer.POST_LOGIN(config.server, body).then(async loginRes => {
-          if (loginRes) {
-            token = loginRes.token;
-            driveKey = config.driveKey;
-            server = config.server;
-            cdn = config.cdn;
-          }
-        });
+        if (config) {
+          server = config.server;
+          cdn = config.cdn;
+        }
       });
 
-      await Jwplayer.GET_MOVIE(props.match.params.id, server, token).then(
-        async movie => {
-          let subtitles = [];
-          let sources = [];
-          let download = {};
-          movie.subtitles.map(subtitle => {
-            subtitles.push({
-              kind: 'captions',
-              file: `https://cors-anywhere.herokuapp.com/${subtitle.file}`,
-              label: subtitle.label
-            });
+      await Jwplayer.GET_TOKEN().then(tokenoauth => {
+        token2 = tokenoauth.access_token;
+      });
+
+      Jwplayer.GET_MOVIE(props.match.params.id, server, token).then(movie => {
+        let subtitles = [];
+        let sources = [];
+        let download = {};
+        movie.subtitles.map(subtitle => {
+          subtitles.push({
+            kind: 'captions',
+            file: `https://cors-anywhere.herokuapp.com/${subtitle.file}`,
+            label: subtitle.label
           });
-          await Jwplayer.GET_SOURCE(
+        });
+        if (movie) {
+          Jwplayer.GET_SOURCE(
             movie.driveId,
             movie.enc,
             server,
             cdn,
             token
-          ).then(async source => {
-            await Jwplayer.GET_DOWNLOAD(source.download.url).then(
-              getDownload => {
-                download = {
-                  url: getDownload.url
-                };
-              }
-            );
-
+          ).then(source => {
+            download.url = `${source?.download?.url}&token=${token2}`;
+            console.log(download.url);
             if (!isEmpty(source.sources)) {
               source.sources.map(source => {
                 sources.push({
@@ -126,20 +117,14 @@ const PlayerContainer = props => {
               });
             } else {
               if (!isEmpty(movie.backupDriveId)) {
-                await Jwplayer.GET_SOURCE(
+                Jwplayer.GET_SOURCE(
                   movie.backupDriveId[0],
                   movie.enc,
                   server,
                   cdn,
                   token
-                ).then(async backupSource => {
-                  await Jwplayer.GET_DOWNLOAD(backupSource.download.url).then(
-                    getDownload => {
-                      download = {
-                        url: getDownload.url
-                      };
-                    }
-                  );
+                ).then(backupSource => {
+                  download.url = `${backupSource?.download?.url}&token=${token2}`;
                   if (isEmpty(backupSource.sources)) {
                     sources.push({
                       file: download.url,
@@ -175,7 +160,7 @@ const PlayerContainer = props => {
             });
           });
         }
-      );
+      });
     };
     getMovie();
   }, []);

@@ -8,6 +8,10 @@ export default {
   SERIES: '/series',
   SERIES_DETAIL: '/series/:id',
   SERIES_PLAY: '/series/:id/play',
-  LOGIN: '/auth/login',
-  PLAYER: '/play/:id'
+  PLAYER: '/play/:id',
+  DASHBOARD: '/dashboard',
+  LOGIN: '/dashboard/login',
+  DASHBOARD_LIST_MOVIES: '/dashboard/movies',
+  DASHBOARD_ADD_MOVIE: '/dashboard/movies/add',
+  DASHBOARD_EDIT_MOVIE: '/dashboard/movies/:id/edit'
 };
