@@ -12,7 +12,7 @@ import { Spin } from 'antd';
 
 const PlayerContainer = props => {
   const [showDownload, setShowDownload] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [playlist, setPlaylist] = useState({
     sources: [],
     tracks: []
@@ -21,15 +21,7 @@ const PlayerContainer = props => {
     movie: {
       image: Assets.no_preview.image2
     },
-    sources: [
-      {
-        file: 'https://www.googleapis.com/drive/v3/files/1GFKyToX_-AyiRBnG0gyGoiEJKg9WaRnT?alt=media&key=AIzaSyC-349q1U-bdyXXDsCqZLS99cwXyiJzKYs',
-        label: 'Original',
-        type: 'video/mpeg',
-        default: true
-      }
-    ],
-    // sources: [],
+    sources: [],
     subtitles: [],
     download: {}
   });
@@ -111,9 +103,7 @@ const PlayerContainer = props => {
             server,
             cdn,
             token
-          ).then(source => {
-            download.url = `${source?.download?.url}&token=${token2}`;
-            download.url2 = source?.download?.url2;
+          ).then(async source => {
             if (!isEmpty(source.sources)) {
               source.sources.map(source => {
                 sources.push({
@@ -124,7 +114,7 @@ const PlayerContainer = props => {
               });
             } else {
               if (!isEmpty(movie.backupDriveId)) {
-                Jwplayer.GET_SOURCE(
+                await Jwplayer.GET_SOURCE(
                   movie.backupDriveId[0],
                   movie.enc,
                   server,
@@ -132,8 +122,7 @@ const PlayerContainer = props => {
                   token
                 ).then(backupSource => {
                   download.url = `${backupSource?.download?.url}&token=${token2}`;
-                  // download.url2 = backupSource?.download?.url2;
-
+                  download.url2 = backupSource?.download?.url2;
                   if (isEmpty(backupSource.sources)) {
                     sources.push({
                       file: download.url2,
@@ -152,16 +141,12 @@ const PlayerContainer = props => {
                   }
                 });
               }
-              // else {
-              //   sources.push({
-              //     file: download.url2,
-              //     label: 'Original',
-              //     type: 'video/mp4',
-              //     default: true
-              //   });
-              // }
             }
             setIsLoading(false)
+            setPlaylist({
+              sources,
+              tracks: subtitles
+            })
             setDataMovie({
               ...dataMovie,
               movie,
@@ -169,15 +154,11 @@ const PlayerContainer = props => {
               subtitles,
               download
             });
-            setPlaylist({
-              sources,
-              tracks: subtitles
-            })
           });
         }
       });
     };
-    // getMovie();
+    getMovie();
   }, []);
 
   const onClickDownload = () => {
