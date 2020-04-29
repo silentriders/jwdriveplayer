@@ -65,7 +65,7 @@ const HomePageComponent = () => {
             alt="JWDRIVEPLAYER-GOOGLE-STREAMING-LINKS"
             width="100%"
           />
-          <h4>Dashboard coming soon..</h4>
+          <h4>NEW! <Link to="/dashboard">Dashboard</Link></h4>
           <h4>Api coming soon..</h4>
           <h4>Mass generate coming soon..</h4>
           <h4>Go to heaven coming soon..</h4>

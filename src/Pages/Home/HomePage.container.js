@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import HomePageComponent from './HomePage.component';
 import Jwplayer from '../../Services/Jwplayer/Jwplayer';
 import { message } from 'antd';
+import { Layout } from '../../Components';
 
 const HomePageContainer = () => {
   useEffect(() => {
@@ -29,7 +30,11 @@ const HomePageContainer = () => {
     _ping();
   }, []);
 
-  return <HomePageComponent />;
+  return (
+    <Layout>
+      <HomePageComponent />
+    </Layout>
+  );
 };
 
 export default HomePageContainer;
