@@ -46,7 +46,7 @@ const _initialValue = (type, field, initialValue) => {
 
 const _mappingRadio = items =>
   items.map(item => (
-    <Radio value={item.name} key={item.id}>
+    <Radio value={item.name} key={item.id} disabled={item.disabled}>
       {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
     </Radio>
   ));
@@ -84,8 +84,10 @@ const _typeField = (type, field, initialValue, optional, disabled, placeholder) 
     );
   }else if (type === 'time' || type === 'time-range') {
     return <TimePicker size="default" defaultOpenValue={moment('00:00', 'HH:mm')} format={'HH:mm'} disabled={disabled} />;
+  } else if (type === 'password') {
+    return <Input.Password size="default" placeholder={placeholder} />
   } else {
-    return <Input size="default" placeholder={placeholder} />;
+    return <Input size="default" disabled={disabled} placeholder={placeholder} />
   }
 };
 

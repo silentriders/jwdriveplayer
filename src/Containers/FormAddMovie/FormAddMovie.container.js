@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, message } from 'antd';
 import FormAddMovieComponent from './FormAddMovie.component';
 import _ from 'lodash';
 import { useGlobalState } from '../../globalState';
 import Jwplayer from '../../Services/Jwplayer/Jwplayer';
+import UserContext from '../../Context/UserContext';
+
+const reverseStr = str => {
+  var splitString = str.split('');
+  var reverseArray = splitString.reverse();
+  var joinArray = reverseArray.join('');
+  return joinArray;
+};
+
+const encb64 = str => {
+  return new Buffer.from(window.btoa(reverseStr(str))).toString('base64');
+};
+
+const dec64 = str => {
+  return str
+}
 
 const FormAddMovieContainer = props => {
-  const { type = 'movie' } = props;
+  const { userCookies } = useContext(UserContext);
+  const userLogin = JSON.parse(userCookies);
+  const isLogin = userLogin !== null;
+  const { type = 'movie', isEdit, dataMovieEdit } = props;
   const [dynamicCount, setDynamicCount] = useState({
     subtitles: 0
   });
@@ -48,6 +67,18 @@ const FormAddMovieContainer = props => {
   const encOpt = [
     {
       id: 0,
+      name: 'no',
+      disabled: true
+    },
+    {
+      id: 1,
+      name: 'yes'
+    }
+  ];
+
+  const optDownload = [
+    {
+      id: 0,
       name: 'no'
     },
     {
@@ -73,7 +104,7 @@ const FormAddMovieContainer = props => {
       field_name: 'title',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.title : '',
       placeholder: 'ex. Joker (2019)'
     },
     {
@@ -82,7 +113,8 @@ const FormAddMovieContainer = props => {
       field_name: 'driveId',
       type: 'text',
       size: 24,
-      initialValue: '',
+      disabled: isEdit,
+      initialValue: isEdit ? dataMovieEdit.driveId : '',
       placeholder:
         'ex. 1ob2IzjrEB5kodfwJ9zOGeXyn_wHQwXDN  OR  https://drive.google.com/file/d/1ob2IzjrEB5kodfwJ9zOGeXyn_wHQwXDN/view'
     },
@@ -92,7 +124,7 @@ const FormAddMovieContainer = props => {
       field_name: 'imdbId',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.imdbId :'',
       placeholder: 'ex. tt123534'
     },
     {
@@ -101,7 +133,7 @@ const FormAddMovieContainer = props => {
       field_name: 'quality',
       type: 'radio',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.quality : '',
       placeholder: 'ex. 720p',
       optional: quality
     },
@@ -111,9 +143,19 @@ const FormAddMovieContainer = props => {
       field_name: 'image',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.image : '',
       placeholder:
         'ex. https://image.tmdb.org/t/p/original/vkFRctGpbjL0I6UlJfveETrBVCm.jpg'
+    },
+    {
+      label: 'Show download',
+      required: false,
+      field_name: 'showDownload',
+      type: 'radio',
+      size: 24,
+      initialValue: isEdit ? (dataMovieEdit.showDownload ? 'yes' : 'no') : 'yes',
+      placeholder: 'yes',
+      optional: optDownload
     }
   ];
 
@@ -134,7 +176,7 @@ const FormAddMovieContainer = props => {
       field_name: 'title',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.title : '',
       placeholder: 'ex. Joker (2019)'
     },
     {
@@ -143,7 +185,7 @@ const FormAddMovieContainer = props => {
       field_name: 'season',
       type: 'text',
       size: 12,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.season : '',
       placeholder: 'ex. 4'
     },
     {
@@ -152,7 +194,7 @@ const FormAddMovieContainer = props => {
       field_name: 'episode',
       type: 'text',
       size: 12,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.episode : '',
       placeholder: 'ex. 12'
     },
     {
@@ -161,7 +203,7 @@ const FormAddMovieContainer = props => {
       field_name: 'driveId',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.driveId : '',
       placeholder:
         'ex. 1ob2IzjrEB5kodfwJ9zOGeXyn_wHQwXDN  OR  https://drive.google.com/file/d/1ob2IzjrEB5kodfwJ9zOGeXyn_wHQwXDN/view'
     },
@@ -171,7 +213,7 @@ const FormAddMovieContainer = props => {
       field_name: 'imdbId',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.imdbId : '',
       placeholder: 'ex. tt123534'
     },
     {
@@ -180,7 +222,7 @@ const FormAddMovieContainer = props => {
       field_name: 'quality',
       type: 'radio',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.quality : '',
       placeholder: 'ex. 720p',
       optional: quality
     },
@@ -190,22 +232,21 @@ const FormAddMovieContainer = props => {
       field_name: 'image',
       type: 'text',
       size: 24,
-      initialValue: '',
+      initialValue: isEdit ? dataMovieEdit.image : '',
       placeholder:
         'ex. https://image.tmdb.org/t/p/original/vkFRctGpbjL0I6UlJfveETrBVCm.jpg'
+    },
+    {
+      label: 'Show download',
+      required: false,
+      field_name: 'showDownload',
+      type: 'radio',
+      size: 24,
+      initialValue: isEdit && dataMovieEdit.showDownload ? 'yes' : 'no',
+      placeholder: 'yes',
+      optional: optDownload
     }
   ];
-
-  const reverseStr = str => {
-    var splitString = str.split("");
-    var reverseArray = splitString.reverse();
-    var joinArray = reverseArray.join("");
-    return joinArray;
-  }
-
-  const encb64 = str => {
-    return new Buffer.from(window.btoa(reverseStr(str))).toString('base64');
-  };
 
   const getDriveId = url => {
     let parsing = _.chain(url)
@@ -223,7 +264,7 @@ const FormAddMovieContainer = props => {
     } else {
       driveId = array.length > 5 ? array[5] : array[0];
     }
-    console.log(driveId)
+
     return driveId;
   };
 
@@ -241,6 +282,24 @@ const FormAddMovieContainer = props => {
       .catch(() =>
         message.error(
           "Can't create player, please refresh this page and try again."
+        )
+      );
+  };
+
+  const UPDATE_MOVIE = async data => {
+    await Jwplayer.UPDATE_MOVIE(dataMovieEdit._id, data, userLogin.token)
+      .then(res => {
+        if (res) {
+          message.success('Success edit');
+          setDataMovie(res);
+          setIsShowResult(true);
+          setIsLoadingSubmit(false);
+          setFileSubtitles([]);
+        }
+      })
+      .catch(() =>
+        message.error(
+          "Can't edit, please refresh this page and try again."
         )
       );
   };
@@ -290,37 +349,39 @@ const FormAddMovieContainer = props => {
 
         let backupDriveId = [];
 
-        await Jwplayer.GET_TOKEN().then(async token => {
-          if (token.access_token !== null) {
-            await Jwplayer.POST_DRIVE_COPY(
-              getDriveId(values.driveId),
-              token.access_token
-            )
-              .then(async resCopy => {
-                if (resCopy) {
-                  await Jwplayer.POST_PERMISSIONS(
-                    resCopy.id,
-                    token.access_token
-                  )
-                    .then(permissions => {
-                      if (permissions) {
-                        if (values.enc === 'yes') {
-                          backupDriveId.push(encb64(getDriveId(resCopy.id)));
-                        } else {
-                          backupDriveId.push(getDriveId(resCopy.id));
+        if (!isEdit) {
+          await Jwplayer.GET_TOKEN().then(async token => {
+            if (token.access_token !== null) {
+              await Jwplayer.POST_DRIVE_COPY(
+                getDriveId(values.driveId),
+                token.access_token
+              )
+                .then(async resCopy => {
+                  if (resCopy) {
+                    await Jwplayer.POST_PERMISSIONS(
+                      resCopy.id,
+                      token.access_token
+                    )
+                      .then(permissions => {
+                        if (permissions) {
+                          if (values.enc === 'yes') {
+                            backupDriveId.push(encb64(getDriveId(resCopy.id)));
+                          } else {
+                            backupDriveId.push(getDriveId(resCopy.id));
+                          }
                         }
-                      }
-                    })
-                    .catch(() => {
-                      return;
-                    });
-                }
-              })
-              .catch(() => {
-                return;
-              });
-          }
-        });
+                      })
+                      .catch(() => {
+                        return;
+                      });
+                  }
+                })
+                .catch(() => {
+                  return;
+                });
+            }
+          });
+        }
 
         let data = {
           enc: values.enc === 'yes',
@@ -331,16 +392,29 @@ const FormAddMovieContainer = props => {
           quality: values.quality,
           subtitles: subtitles,
           image: values.image,
-          type: 'movie'
+          type: 'movie',
+          showDownload: values.showDownload === 'yes'
         };
 
-        if(values.enc === 'yes'){
-          data.driveId = encb64(getDriveId(values.driveId))
-        }else{
-          data.enc = false
+        if (values.enc === 'yes') {
+          if(!isEdit) {
+            data.driveId = encb64(getDriveId(values.driveId));
+          }else{
+            data.driveId = values.driveId
+          }
+        } else {
+          data.enc = false;
         }
 
-        await POST_MOVIE(data);
+        if (isLogin) {
+          data.userId = userLogin.user._id;
+        }
+
+        if (!isEdit) {
+          await POST_MOVIE(data);
+        } else {
+          await UPDATE_MOVIE(data);
+        }
       }
     });
   };
@@ -390,35 +464,43 @@ const FormAddMovieContainer = props => {
 
         let backupDriveId = [];
 
-        await Jwplayer.GET_TOKEN().then(async token => {
-          if (token.access_token !== null) {
-            await Jwplayer.POST_DRIVE_COPY(
-              getDriveId(values.driveId),
-              token.access_token
-            )
-              .then(async resCopy => {
-                if (resCopy) {
-                  await Jwplayer.POST_PERMISSIONS(
-                    resCopy.id,
-                    token.access_token
-                  )
-                    .then(permissions => {
-                      if (values.enc === 'yes') {
-                        backupDriveId.push(encb64(getDriveId(resCopy.id)));
-                      } else {
-                        backupDriveId.push(getDriveId(resCopy.id));
-                      }
-                    })
-                    .catch(() => {
-                      return;
-                    });
-                }
-              })
-              .catch(() => {
-                return;
-              });
-          }
-        });
+        if (!isEdit) {
+          await Jwplayer.GET_TOKEN()
+            .then(async token => {
+              if (token.access_token !== null) {
+                await Jwplayer.POST_DRIVE_COPY(
+                  getDriveId(values.driveId),
+                  token.access_token
+                )
+                  .then(async resCopy => {
+                    if (resCopy) {
+                      await Jwplayer.POST_PERMISSIONS(
+                        resCopy.id,
+                        token.access_token
+                      )
+                        .then(permissions => {
+                          if (values.enc === 'yes') {
+                            backupDriveId.push(encb64(getDriveId(resCopy.id)));
+                          } else {
+                            backupDriveId.push(getDriveId(resCopy.id));
+                          }
+                        })
+                        .catch(() => {
+                          return;
+                        });
+                    }
+                  })
+                  .catch(() => {
+                    return;
+                  });
+              }
+            })
+            .catch(() => {
+              message.error(
+                'Cannot create player, please try again or contact admin'
+              );
+            });
+        }
 
         let data = {
           enc: values.enc === 'yes',
@@ -431,14 +513,19 @@ const FormAddMovieContainer = props => {
           image: values.image,
           season: values.season,
           episode: values.episode,
-          type: 'series'
+          type: 'series',
+          showDownload: values.showDownload === 'yes'
         };
-        if(values.enc === 'yes'){
-          data.driveId = encb64(getDriveId(values.driveId))
+        if (values.enc === 'yes') {
+          data.driveId = encb64(getDriveId(values.driveId));
+        } else {
+          data.enc = false;
         }
-        else{
-          data.enc = false
+
+        if (isLogin) {
+          data.userId = userLogin.user._id;
         }
+
         POST_MOVIE(data);
       }
     });
