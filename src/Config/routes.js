@@ -4,7 +4,8 @@ import {
   DashboardHomePage,
   LoginPage,
   ListMoviesPage,
-  AddMoviePage
+  AddMoviePage,
+  RegisterPage
 } from '../Pages';
 import baseUrl from './baseUrl';
 
@@ -14,6 +15,7 @@ export const routes = {
   PLAYER: { path: baseUrl.PLAYER, component: PlayerPage },
   KEYWORD: { path: baseUrl.KEYWORD, component: HomePage },
   LOGIN: { path: baseUrl.LOGIN, component: LoginPage },
+  REGISTER: { path: baseUrl.REGISTER, component: RegisterPage },
   DASHBOARD: { path: baseUrl.DASHBOARD, component: DashboardHomePage },
   DASHBOARD_LIST_MOVIES: {
     path: baseUrl.DASHBOARD_LIST_MOVIES,

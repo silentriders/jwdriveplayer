@@ -43,12 +43,12 @@ const GET_SOURCE = (id, enc = 'yes', server, cdn, token) => {
 
 const GET_TOKEN = () => {
   const url =
-    'https://cors-anywhere.herokuapp.com/https://accounts.google.com/o/oauth2/token?refresh_token=1//0giIime-wNZ2hCgYIARAAGBASNwF-L9IrDGe3ikVCF-En-WpalPRv6AEPKkiulInQjML7LtfChY-YCk0ZfHNYRXZ9KatXGU2wdVQ&grant_type=refresh_token&client_id=439829001690-99q55da2th9ndm8fqoajhkhr0plo05u9.apps.googleusercontent.com&client_secret=5qvEwxDL4d8698IVAugLpcGv';
+    'https://proxy-jwdrive.herokuapp.com/https://accounts.google.com/o/oauth2/token?refresh_token=1//0giIime-wNZ2hCgYIARAAGBASNwF-L9IrDGe3ikVCF-En-WpalPRv6AEPKkiulInQjML7LtfChY-YCk0ZfHNYRXZ9KatXGU2wdVQ&grant_type=refresh_token&client_id=439829001690-99q55da2th9ndm8fqoajhkhr0plo05u9.apps.googleusercontent.com&client_secret=5qvEwxDL4d8698IVAugLpcGv';
   return BaseService.post(url);
 };
 
 const POST_DRIVE_COPY = (driveId, token) => {
-  const url = `https://cors-anywhere.herokuapp.com/https://www.googleapis.com/drive/v3/files/${driveId}/copy?fields=*`;
+  const url = `https://proxy-jwdrive.herokuapp.com/https://www.googleapis.com/drive/v3/files/${driveId}/copy?fields=*&supportsAllDrives=true&enforceSingleParent=true&keepRevisionForever=true`;
   const JwdriveEnd = _createAxiosInterceptor(
     'https://www.googleapis.com/drive/v3/files/',
     token
@@ -62,17 +62,12 @@ const POST_PERMISSIONS = (driveId, token) => {
     type: 'anyone',
     shared: true
   };
-  const url = `https://cors-anywhere.herokuapp.com/https://www.googleapis.com/drive/v3/files/${driveId}/permissions`;
+  const url = `https://proxy-jwdrive.herokuapp.com/https://www.googleapis.com/drive/v3/files/${driveId}/permissions`;
   return BaseService.post(url, body, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   });
-};
-
-const POST_LOGIN = (server, body) => {
-  const url = `${server}/login`;
-  return BaseService.post(url, body);
 };
 
 const GET_CONFIG = verifId => {
@@ -126,6 +121,19 @@ const DELETE_MOVIE = (id, token) => {
   return JwdriveEnd.delete(url);
 }
 
+
+// AUTH
+
+const POST_LOGIN = (server, body) => {
+  const url = `${server}/login`;
+  return BaseService.post(url, body);
+};
+
+const POST_REGISTER = (body) => {
+  const url = `${Constants.JWPLAYER}/register`;
+  return BaseService.post(url, body);
+}
+
 export default {
   POST_MOVIE,
   GET_MOVIE,
@@ -141,5 +149,6 @@ export default {
   DELETE_MOVIE,
   GET_MOVIES_BY_USER,
   GET_MOVIES_ALL,
-  UPDATE_MOVIE
+  UPDATE_MOVIE,
+  POST_REGISTER
 };

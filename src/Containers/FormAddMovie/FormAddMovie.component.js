@@ -212,14 +212,14 @@ const FormAddMovieComponent = props => {
         <p>Your Link</p>
         <Input.TextArea
           rows={2}
-          value={`https://jwdrive-qooxi.netlify.app/play/${dataMovie._id}`}
+          value={`${window.location.origin}/play/${dataMovie._id}`}
         />
         <br />
         <br />
         <p>Embed Source</p>
         <Input.TextArea
           rows={2}
-          value={`<iframe src="https://jwdrive-qooxi.netlify.app/play/${dataMovie._id}" frameborder="0" width="100%" height="400" allowfullscreen="allowfullscreen"></iframe>`}
+          value={`<iframe src="${window.location.origin}/play/${dataMovie._id}" frameborder="0" width="100%" height="400" allowfullscreen="allowfullscreen"></iframe>`}
         />
          {/* <br />
         <br />

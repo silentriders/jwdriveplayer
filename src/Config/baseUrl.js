@@ -11,6 +11,7 @@ export default {
   PLAYER: '/play/:id',
   DASHBOARD: '/dashboard',
   LOGIN: '/dashboard/login',
+  REGISTER: '/dashboard/register',
   DASHBOARD_LIST_MOVIES: '/dashboard/movies',
   DASHBOARD_ADD_MOVIE: '/dashboard/movies/add',
   DASHBOARD_EDIT_MOVIE: '/dashboard/movies/:id/edit'

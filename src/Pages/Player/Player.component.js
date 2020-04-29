@@ -7,35 +7,35 @@ import { Spin, message, Modal } from 'antd';
 import Cookies from '../../Utils/Cookies';
 
 const PlayerComponent = props => {
-  const { dataMovie, showDownload, onClickDownload, onCloseDownload } = props;
+  const { dataMovie, showDownload, onClickDownload, onCloseDownload, playlist } = props;
   let poster = Assets.no_preview.image2;
 
-  if (dataMovie?.movie?.image !== '') {
-    poster = dataMovie?.movie?.image;
-  }
+  // if (dataMovie?.movie?.image !== '') {
+  //   poster = dataMovie?.movie?.image;
+  // }
 
-  const playlist = [
-    {
-      title: !isEmpty(dataMovie.movie) && dataMovie.movie.title,
-      image: poster,
-      sources: dataMovie?.sources,
-      // sources: [
-      //   {
-      //     file: 'http://localhost:3001/download?fileId=1ob2IzjrEB5kodfwJ9zOGeXyn_wHQwXDN&token=ya29.a0Ae4lvC2rbVXDAYNw4gBvR_D30yow4qs7hIqHW6XrAeIs0qQNUHtn4uyRKIx_EMwO-kbpvFmzZpn-hEpOgJifrSJMqBU1_mcTGFhsTbOzBIO9jKEn_FFGOjQVaK_KK_r1AlnVgzQM0Vx5TJj2_nGnsuVUjk9QpRxlITY2',
-      //     label: 'Original',
-      //     type: 'video/mp4',
-      //     default: true
-      //   }
-      // ],
-      tracks: dataMovie?.subtitles
-    }
-  ];
+  // const playlist = {
+    // image: poster,
+    // sources: dataMovie?.sources,
+    // sources: [
+    //   {
+    //     file: dataMovie.download.url2,
+    //     label: 'Original',
+    //     type: 'video/mp4',
+    //     default: true
+    //   }
+    // ],
+    // tracks: dataMovie?.subtitles
+  // }
 
   const onReady = () => {
     const player = window.jwplayer('player');
+    player.on('ready', () => {
+      message.info("loading..")
+    })
     const buttonId = 'download-video-button';
     const iconPath = Assets.icon.download;
-    const tooltipText = `Download Video ${dataMovie.movie.title}`;
+    const tooltipText = `Download Video`;
     if(dataMovie.movie.showDownload){
       player.addButton(iconPath, tooltipText, onClickDownload, buttonId);
     }
@@ -67,16 +67,16 @@ const PlayerComponent = props => {
 
   const getSourceDownload = () =>
     dataMovie?.sources.map((item, key) => (
-      <ButtonDownload key={key}>
-        <a
-          className="download-button"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={item.file}
-        >
-          {item.label}
-        </a>
-      </ButtonDownload>
+      item.label !== 'Original' && <ButtonDownload key={key}>
+      <a
+        className="download-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={item.file}
+      >
+        {item.label}
+      </a>
+    </ButtonDownload>
     ));
 
   const _modalDownload = () => (
@@ -87,25 +87,30 @@ const PlayerComponent = props => {
       onCancel={onCloseDownload}
     >
       {getSourceDownload()}
+      <ButtonDownload>
+      <a
+        className="download-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={dataMovie.download.url}
+      >
+        {`Original`}
+      </a>
+    </ButtonDownload>
     </Modal>
   );
 
   return (
     <WrapPlayer>
-      {isEmpty(dataMovie?.sources) ? (
-        <Spin size="large" tip="Please wait ..." style={{ marginTop: '15%' }} />
-      ) : (
-        <div>
+      <div>
           <ReactJWPlayer
             onReady={() => onReady()}
             playerId="player"
             playerScript="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"
             playlist={playlist}
-            displaytitle={true}
           />
           {_modalDownload()}
         </div>
-      )}
     </WrapPlayer>
   );
 };

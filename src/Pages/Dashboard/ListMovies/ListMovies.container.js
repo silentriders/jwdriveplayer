@@ -125,7 +125,8 @@ const ListMoviesContainer = props => {
           if (movies) {
             setSourceMovies({
               ...sourceMovies,
-              movies
+              movies,
+              search: []
             });
           }
         });

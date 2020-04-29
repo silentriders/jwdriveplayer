@@ -6,9 +6,17 @@ import Jwplayer from '../../Services/Jwplayer/Jwplayer';
 import Assets from '../../Assets';
 import { Helmet } from 'react-helmet';
 import { isEmpty } from 'lodash';
+import Constants from '../../Config/Constants';
+import { WrapPlayer } from './Player.style';
+import { Spin } from 'antd';
 
 const PlayerContainer = props => {
   const [showDownload, setShowDownload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [playlist, setPlaylist] = useState({
+    sources: [],
+    tracks: []
+  })
   const [dataMovie, setDataMovie] = useState({
     movie: {
       image: Assets.no_preview.image2
@@ -68,14 +76,13 @@ const PlayerContainer = props => {
       'font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;'
     );
     const getMovie = async () => {
-      let token =
-        '6384af13bfe11434e2409adb43dc0095033c3997bdd2ad5f1e3f06763f17baf331ec76ae3300c421da2886be89374cf8888d205444b24c3c20d2d7010964b10105d4cd401d3c5cca1f5c052c323b9652fb7e008693265fd2062403ee3e32f425a6bf9f484b8c1de8179dd438bd63d5422cf45fddbc3ebaede4801b79519c6208e33ed182fc1c097f3f22617b52530f3fcf1e7ff9d820469b747e00b74946028f055a25dc121e46c8341f47f1dfaa946497c0065021c503e4a3924c37cd16ca3979f8586e45658459f7e7f45263ece617';
-      let siteVerified = '5e9cb46c376b2e25547fe23d';
-      let server = 'https://jwdriveplayer.herokuapp.com';
-      let cdn = 'https://jwdriveplayer.herokuapp.com';
+      let token = Constants.TOKEN;
+      let siteVerified = Constants.SITE_VERIFIED;
+      let server = Constants.JWPLAYER;
+      let cdn = Constants.JWPLAYER;
       let token2 = null;
 
-      await Jwplayer.GET_CONFIG(siteVerified).then(async config => {
+      Jwplayer.GET_CONFIG(siteVerified).then(async config => {
         if (config) {
           server = config.server;
           cdn = config.cdn;
@@ -93,7 +100,7 @@ const PlayerContainer = props => {
         movie.subtitles.map(subtitle => {
           subtitles.push({
             kind: 'captions',
-            file: `https://cors-anywhere.herokuapp.com/${subtitle.file}`,
+            file: `https://proxy-jwdrive.herokuapp.com/${subtitle.file}`,
             label: subtitle.label
           });
         });
@@ -106,7 +113,7 @@ const PlayerContainer = props => {
             token
           ).then(source => {
             download.url = `${source?.download?.url}&token=${token2}`;
-            console.log(download.url);
+            download.url2 = source?.download?.url2;
             if (!isEmpty(source.sources)) {
               source.sources.map(source => {
                 sources.push({
@@ -125,9 +132,11 @@ const PlayerContainer = props => {
                   token
                 ).then(backupSource => {
                   download.url = `${backupSource?.download?.url}&token=${token2}`;
+                  // download.url2 = backupSource?.download?.url2;
+
                   if (isEmpty(backupSource.sources)) {
                     sources.push({
-                      file: download.url,
+                      file: download.url2,
                       label: 'Original',
                       type: 'video/mp4',
                       default: true
@@ -142,15 +151,17 @@ const PlayerContainer = props => {
                     });
                   }
                 });
-              } else {
-                sources.push({
-                  file: download.url,
-                  label: 'Original',
-                  type: 'video/mp4',
-                  default: true
-                });
               }
+              // else {
+              //   sources.push({
+              //     file: download.url2,
+              //     label: 'Original',
+              //     type: 'video/mp4',
+              //     default: true
+              //   });
+              // }
             }
+            setIsLoading(false)
             setDataMovie({
               ...dataMovie,
               movie,
@@ -158,6 +169,10 @@ const PlayerContainer = props => {
               subtitles,
               download
             });
+            setPlaylist({
+              sources,
+              tracks: subtitles
+            })
           });
         }
       });
@@ -179,12 +194,17 @@ const PlayerContainer = props => {
         <meta charSet="utf-8" />
         <title>{dataMovie?.movie?.title ?? 'Play Movie'} - Jwdriveplayer</title>
       </Helmet>
-      <PlayerComponent
+     <WrapPlayer>
+     {
+        !isLoading ? <PlayerComponent
         dataMovie={dataMovie}
         showDownload={showDownload}
         onClickDownload={onClickDownload}
         onCloseDownload={onCloseDownload}
-      />
+        playlist={playlist}
+      /> : <Spin tip="Loading..." size="large" style={{marginTop: 24}} />
+      }
+     </WrapPlayer>
     </div>
   );
 };
