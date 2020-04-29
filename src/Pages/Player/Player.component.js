@@ -7,26 +7,26 @@ import { Spin, message, Modal } from 'antd';
 import Cookies from '../../Utils/Cookies';
 
 const PlayerComponent = props => {
-  const { dataMovie, showDownload, onClickDownload, onCloseDownload, playlist } = props;
+  const { dataMovie, showDownload, onClickDownload, onCloseDownload } = props;
   let poster = Assets.no_preview.image2;
 
   // if (dataMovie?.movie?.image !== '') {
   //   poster = dataMovie?.movie?.image;
   // }
 
-  // const playlist = {
-    // image: poster,
+  const playlist = {
+    image: poster,
     // sources: dataMovie?.sources,
-    // sources: [
-    //   {
-    //     file: dataMovie.download.url2,
-    //     label: 'Original',
-    //     type: 'video/mp4',
-    //     default: true
-    //   }
-    // ],
-    // tracks: dataMovie?.subtitles
-  // }
+    sources: [
+      {
+        file: 'https://www.googleapis.com/drive/v3/files/1GFKyToX_-AyiRBnG0gyGoiEJKg9WaRnT?alt=media&key=AIzaSyC-349q1U-bdyXXDsCqZLS99cwXyiJzKYs',
+        label: 'Original',
+        type: 'video/mp4',
+        default: true
+      }
+    ],
+    tracks: dataMovie?.subtitles
+  }
 
   const onReady = () => {
     const player = window.jwplayer('player');

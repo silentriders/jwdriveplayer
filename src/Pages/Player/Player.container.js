@@ -12,7 +12,7 @@ import { Spin } from 'antd';
 
 const PlayerContainer = props => {
   const [showDownload, setShowDownload] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [playlist, setPlaylist] = useState({
     sources: [],
     tracks: []
@@ -21,15 +21,15 @@ const PlayerContainer = props => {
     movie: {
       image: Assets.no_preview.image2
     },
-    // sources: [
-    //   {
-    //     file: Assets.no_preview.video,
-    //     label: 'Not found',
-    //     type: 'video/mp4',
-    //     default: true
-    //   }
-    // ],
-    sources: [],
+    sources: [
+      {
+        file: 'https://www.googleapis.com/drive/v3/files/1GFKyToX_-AyiRBnG0gyGoiEJKg9WaRnT?alt=media&key=AIzaSyC-349q1U-bdyXXDsCqZLS99cwXyiJzKYs',
+        label: 'Original',
+        type: 'video/mpeg',
+        default: true
+      }
+    ],
+    // sources: [],
     subtitles: [],
     download: {}
   });
@@ -177,7 +177,7 @@ const PlayerContainer = props => {
         }
       });
     };
-    getMovie();
+    // getMovie();
   }, []);
 
   const onClickDownload = () => {
