@@ -104,6 +104,7 @@ const PlayerContainer = props => {
             cdn,
             token
           ).then(async source => {
+            download.url = `${source?.download?.url}&token=${token2}`;
             if (!isEmpty(source.sources)) {
               source.sources.map(source => {
                 sources.push({
