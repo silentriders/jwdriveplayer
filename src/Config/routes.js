@@ -10,8 +10,8 @@ import {
 import baseUrl from './baseUrl';
 
 export const routes = {
-  DEFAULT: { path: baseUrl.DEFAULT, component: HomePage },
-  HOME: { path: baseUrl.HOME, component: HomePage },
+  DEFAULT: { path: baseUrl.DEFAULT, component: LoginPage },
+  HOME: { path: baseUrl.HOME, component: LoginPage },
   PLAYER: { path: baseUrl.PLAYER, component: PlayerPage },
   KEYWORD: { path: baseUrl.KEYWORD, component: HomePage },
   LOGIN: { path: baseUrl.LOGIN, component: LoginPage },
