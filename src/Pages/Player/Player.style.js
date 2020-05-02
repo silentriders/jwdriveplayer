@@ -7,7 +7,7 @@ export const WrapPlayer = styled.div`
   width: 100%;
   height: 100%;
   text-align: center;
-  background-image: url(${Assets.no_preview.image2});
+  /* background-image: url(${Assets.no_preview.image2}); */
   background-size: 100%;
   .ant-spin.ant-spin-show-text .ant-spin-text{
     font-size: 48px;

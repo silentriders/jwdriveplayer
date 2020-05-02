@@ -6,23 +6,24 @@ import { message, Modal } from 'antd';
 import Cookies from '../../Utils/Cookies';
 
 const PlayerComponent = props => {
-  const { dataMovie, showDownload, onClickDownload, onCloseDownload, playlist } = props;
+  const {
+    dataMovie,
+    showDownload,
+    onClickDownload,
+    onCloseDownload,
+    playlist
+  } = props;
 
   const onReady = () => {
     const player = window.jwplayer('player');
-    player.setup({
-      playlist: playlist
-    })
+    
     player.on('error', () => {
-      message.error('Not support mkv')
-    })
-    player.on('ready', () => {
-      message.info("Click to play..")
-    })
+      message.error('Not support mkv');
+    });
     const buttonId = 'download-video-button';
     const iconPath = Assets.icon.download;
     const tooltipText = `Download Video`;
-    if(dataMovie.movie.showDownload){
+    if (dataMovie.movie.showDownload) {
       player.addButton(iconPath, tooltipText, onClickDownload, buttonId);
     }
     player.setVolume(80);
@@ -52,18 +53,21 @@ const PlayerComponent = props => {
   };
 
   const getSourceDownload = () =>
-    dataMovie?.sources.map((item, key) => (
-      item.label !== 'Original' && <ButtonDownload key={key}>
-      <a
-        className="download-button"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={item.file}
-      >
-        {item.label}
-      </a>
-    </ButtonDownload>
-    ));
+    playlist.sources.map(
+      (item, key) =>
+        item.label !== 'Original' && (
+          <ButtonDownload key={key}>
+            <a
+              className="download-button"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={item.file}
+            >
+              {item.label}
+            </a>
+          </ButtonDownload>
+        )
+    );
 
   const _modalDownload = () => (
     <Modal
@@ -74,27 +78,27 @@ const PlayerComponent = props => {
     >
       {getSourceDownload()}
       <ButtonDownload>
-      <a
-        className="download-button"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={dataMovie.download.url}
-      >
-        {`Original`}
-      </a>
-    </ButtonDownload>
+        <a
+          className="download-button"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={dataMovie.download.url}
+        >
+          {`Original`}
+        </a>
+      </ButtonDownload>
     </Modal>
   );
 
   return (
     <WrapPlayer>
       <ReactJWPlayer
-            onReady={() => onReady()}
-            playerId="player"
-            playerScript="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"
-            playlist={playlist}
-          />
-          {_modalDownload()}
+        onReady={() => onReady()}
+        playerId="player"
+        playerScript="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"
+        playlist={playlist}
+      />
+      {_modalDownload()}
     </WrapPlayer>
   );
 };

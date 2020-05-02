@@ -14,8 +14,13 @@ const PlayerContainer = props => {
   const [showDownload, setShowDownload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [playlist, setPlaylist] = useState({
-    sources: [],
-    tracks: []
+    sources: [{
+      file: Assets.no_preview.video,
+      type: 'video/mp4',
+      default: false
+    }],
+    tracks: [],
+    title: 'Loading...'
   })
   const [dataMovie, setDataMovie] = useState({
     movie: {
@@ -27,6 +32,7 @@ const PlayerContainer = props => {
   });
 
   useEffect(() => {
+    console.log(window.location.hostname)
     console.log(
       '%cStop!',
       'color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold'
@@ -89,6 +95,7 @@ const PlayerContainer = props => {
         let subtitles = [];
         let sources = [];
         let download = {};
+        let title = 'Loading...'
         movie.subtitles.map(subtitle => {
           subtitles.push({
             kind: 'captions',
@@ -97,6 +104,7 @@ const PlayerContainer = props => {
           });
         });
         if (movie) {
+          title = movie.title
           Jwplayer.GET_SOURCE(
             movie.driveId,
             movie.enc,
@@ -105,6 +113,11 @@ const PlayerContainer = props => {
             token
           ).then(async source => {
             download.url = `${source?.download?.url}&token=${token2}`;
+            setDataMovie({
+              ...dataMovie,
+              movie,
+              download
+            });
             if (!isEmpty(source.sources)) {
               source.sources.map(source => {
                 sources.push({
@@ -146,15 +159,9 @@ const PlayerContainer = props => {
             setIsLoading(false)
             setPlaylist({
               sources,
-              tracks: subtitles
+              tracks: subtitles,
+              title: title
             })
-            setDataMovie({
-              ...dataMovie,
-              movie,
-              sources,
-              subtitles,
-              download
-            });
           });
         }
       });
@@ -169,7 +176,7 @@ const PlayerContainer = props => {
   const onCloseDownload = () => {
     setShowDownload(false);
   };
-
+console.log(dataMovie)
   return (
     <div>
       <Helmet>
@@ -177,7 +184,7 @@ const PlayerContainer = props => {
         <title>{dataMovie?.movie?.title ?? 'Play Movie'} - Jwdriveplayer</title>
       </Helmet>
      <WrapPlayer>
-     {
+     {/* {
         !isLoading ? <PlayerComponent
         dataMovie={dataMovie}
         showDownload={showDownload}
@@ -185,7 +192,14 @@ const PlayerContainer = props => {
         onCloseDownload={onCloseDownload}
         playlist={playlist}
       /> : <Spin tip="Loading..." size="large" style={{marginTop: 24}} />
-      }
+      } */}
+      <PlayerComponent
+        dataMovie={dataMovie}
+        showDownload={showDownload}
+        onClickDownload={onClickDownload}
+        onCloseDownload={onCloseDownload}
+        playlist={playlist}
+      />
      </WrapPlayer>
     </div>
   );
